@@ -7,7 +7,7 @@ loadType(mongoose);
 const daySchema = new Schema(
 	{
 		date: String,
-		revenue: {
+		income: {
 			type: mongoose.Types.Currency,
 			currency: 'USD',
 			get: (v) => v / 100,
@@ -24,7 +24,7 @@ const daySchema = new Schema(
 const monthSchema = new Schema(
 	{
 		month: String,
-		revenue: {
+		income: {
 			type: mongoose.Types.Currency,
 			currency: 'USD',
 			get: (v) => v / 100,
@@ -55,7 +55,7 @@ const KPISchema = new Schema(
 			currency: 'USD',
 			get: (v) => v / 100,
 		},
-		totalRevenue: {
+		totalIncome: {
 			type: mongoose.Types.Currency,
 			currency: 'USD',
 			get: (v) => v / 100,

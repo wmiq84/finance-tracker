@@ -20,13 +20,13 @@ const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
 	console.log('data:', data);
-	const revenueExpenses = useMemo(() => {
+	const incomeExpenses = useMemo(() => {
 		return (
 			data &&
-			data[0].monthlyData.map(({ month, revenue, expenses }) => {
+			data[0].monthlyData.map(({ month, income, expenses }) => {
 				return {
 					name: month.substring(0, 3),
-					revenue: revenue,
+					income: income,
 					expenses: expenses,
 				};
 			})
@@ -36,15 +36,15 @@ const Row1 = (props: Props) => {
 		<>
 			<DashboardBox gridArea="a">
 				<BoxHeader
-					title="Revenue and Expenses"
-					subtitle="top line represents revenue, bottom line represents expeneses"
+					title="Income and Expenses"
+					subtitle="top line represents income, bottom line represents expeneses"
 					sideText="+4%"
 				></BoxHeader>
 				<ResponsiveContainer width="100%" height="100%">
 					<AreaChart
 						width={500}
 						height={400}
-						data={revenueExpenses}
+						data={incomeExpenses}
 						margin={{
 							top: 15,
 							right: 25,
@@ -53,7 +53,7 @@ const Row1 = (props: Props) => {
 						}}
 					>
 						<defs>
-							<linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+							<linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
 								<stop
 									offset="5%"
 									stopColor={palette.primary[300]}
@@ -92,11 +92,11 @@ const Row1 = (props: Props) => {
 						<Tooltip />
 						<Area
 							type="monotone"
-							dataKey="revenue"
+							dataKey="income"
 							dot={true}
 							stroke={palette.primary.main}
 							fillOpacity={1}
-							fill="url(#colorRevenue)"
+							fill="url(#colorIncome)"
 						/>
 						<Area
 							type="monotone"
@@ -109,7 +109,8 @@ const Row1 = (props: Props) => {
 					</AreaChart>
 				</ResponsiveContainer>
 			</DashboardBox>
-			<DashboardBox gridArea="b"></DashboardBox>
+			<DashboardBox gridArea="b">
+			</DashboardBox>
 			<DashboardBox gridArea="c"></DashboardBox>
 		</>
 	);
