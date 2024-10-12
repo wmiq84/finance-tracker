@@ -30,25 +30,32 @@ const Row1 = (props: Props) => {
 	const { data } = useGetKpisQuery();
 	const { data: productData } = useGetProductsQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
-	// console.log('productData: ', productData);
+	console.log('productData: ', productData);
 	// console.log('transactionData: ', transactionData);
 	const productColumns = [
 		{
-			field: '_id',
-			headerName: 'id',
+			field: 'date',
+			headerName: 'Date',
 			flex: 1,
+			renderCell: (params: GridCellParams) => {
+				const date = new Date(params.value);
+				return date.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: '2-digit',
+					day: '2-digit',
+				});
+			},
 		},
 		{
-			field: 'expense',
-			headerName: 'Expense',
-			flex: 0.5,
+			field: 'amount',
+			headerName: 'Amount',
+			flex: 1,
 			renderCell: (params: GridCellParams) => `$${params.value}`,
 		},
 		{
-			field: 'price',
-			headerName: 'Price',
-			flex: 0.5,
-			renderCell: (params: GridCellParams) => `$${params.value}`,
+			field: 'category',
+			headerName: 'Category',
+			flex: 1,
 		},
 	];
 
