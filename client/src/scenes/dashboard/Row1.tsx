@@ -2,7 +2,7 @@ import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
 import {
 	useGetKpisQuery,
-	useGetProductsQuery,
+	useGetIncomesQuery,
 	useGetTransactionsQuery,
 } from '@/state/api';
 import {
@@ -28,11 +28,11 @@ type Props = {};
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
-	const { data: productData } = useGetProductsQuery();
+	const { data: incomeData } = useGetIncomesQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
-	console.log('productData: ', productData);
+	console.log('incomeData: ', incomeData);
 	// console.log('transactionData: ', transactionData);
-	const productColumns = [
+	const incomeColumns = [
 		{
 			field: 'date',
 			headerName: 'Date',
@@ -154,7 +154,7 @@ const Row1 = (props: Props) => {
 			<DashboardBox gridArea="c">
 				<BoxHeader
 					title="Recent Income"
-					sideText={`${productData?.length} products`}
+					sideText={`${incomeData?.length} sources`}
 				></BoxHeader>
 				<Box
 					mt="0.5rem"
@@ -180,8 +180,8 @@ const Row1 = (props: Props) => {
 						columnHeaderHeight={25}
 						rowHeight={35}
 						hideFooter={true}
-						rows={productData || []}
-						columns={productColumns}
+						rows={incomeData || []}
+						columns={incomeColumns}
 					/>
 				</Box>
 			</DashboardBox>

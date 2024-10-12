@@ -15,10 +15,10 @@ const TransactionSchema = new Schema(
 			currency: 'USD',
 			get: (v) => v / 100,
 		},
-		productIds: [
+		incomeIds: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Product',
+				ref: 'Income',
 			},
 		],
 	},
