@@ -1,4 +1,4 @@
-export interface ExpensesByCategories{
+export interface SpendingByCategories{
     salaries: number;
     supplies: number;
     services: number;
@@ -8,16 +8,16 @@ export interface Month {
     id: string;
     month: string;
     income: number;
-    expenses: number;
-    nonOperationalExpenses: number;
-    operationalExpenses: number;
+    spending: number;
+    nonOperationalSpending: number;
+    operationalSpending: number;
 }
 
 export interface Day {
     id: string;
     date: string;
     income: number;
-    expenses: number;
+    spending: number;
 }
 
 
@@ -27,8 +27,8 @@ export interface GetKpisResponse {
 	__v: number;
 	totalProfit: number;
 	totalIncome: number;
-	totalExpenses: number;
-	expensesByCategories: number;
+	totalSpending: number;
+	spendingByCategories: number;
     monthlyData: Array<Month>;
     dailyData: Array<Day>;
 }

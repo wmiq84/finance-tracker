@@ -20,14 +20,14 @@ const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
 	console.log('data:', data);
-	const incomeExpenses = useMemo(() => {
+	const incomeSpending = useMemo(() => {
 		return (
 			data &&
-			data[0].monthlyData.map(({ month, income, expenses }) => {
+			data[0].monthlyData.map(({ month, income, spending }) => {
 				return {
 					name: month.substring(0, 3),
 					income: income,
-					expenses: expenses,
+					spending: spending,
 				};
 			})
 		);
@@ -36,15 +36,15 @@ const Row1 = (props: Props) => {
 		<>
 			<DashboardBox gridArea="a">
 				<BoxHeader
-					title="Income and Expenses"
-					subtitle="top line represents income, bottom line represents expeneses"
+					title="Income and Spending"
+					subtitle="top line represents income, bottom line represents spending"
 					sideText="+4%"
 				></BoxHeader>
 				<ResponsiveContainer width="100%" height="100%">
 					<AreaChart
 						width={500}
 						height={400}
-						data={incomeExpenses}
+						data={incomeSpending}
 						margin={{
 							top: 15,
 							right: 25,
@@ -65,7 +65,7 @@ const Row1 = (props: Props) => {
 									stopOpacity={0}
 								/>
 							</linearGradient>
-							<linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+							<linearGradient id="colorSpending" x1="0" y1="0" x2="0" y2="1">
 								<stop
 									offset="5%"
 									stopColor={palette.primary[300]}
@@ -100,11 +100,11 @@ const Row1 = (props: Props) => {
 						/>
 						<Area
 							type="monotone"
-							dataKey="expenses"
+							dataKey="spending"
 							dot={true}
 							stroke={palette.primary.main}
 							fillOpacity={1}
-							fill="url(#colorExpenses)"
+							fill="url(#colorSpending)"
 						/>
 					</AreaChart>
 				</ResponsiveContainer>
