@@ -24,7 +24,7 @@ app.use(cors());
 
 // routes
 app.use('/kpi', kpiRoutes);
-app.use('/transactions', transactionRoutes);
+app.use('/transaction', transactionRoutes);
 
 // mongoose setup
 const PORT = process.env.PORT || 9000;
@@ -36,8 +36,8 @@ mongoose
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 		// comment out after initial
-		await mongoose.connection.db.dropDatabase();
-		KPI.insertMany(kpis);
-		Transaction.insertMany(transactions);
+		// await mongoose.connection.db.dropDatabase();
+		// KPI.insertMany(kpis);
+		// Transaction.insertMany(transactions);
 	})
 	.catch((error) => console.log(`${error} did not connect`));

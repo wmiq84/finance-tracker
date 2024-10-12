@@ -1,25 +1,24 @@
-export interface SpendingByCategories{
-    salaries: number;
-    supplies: number;
-    services: number;
+export interface SpendingByCategories {
+	salaries: number;
+	supplies: number;
+	services: number;
 }
 
 export interface Month {
-    id: string;
-    month: string;
-    income: number;
-    spending: number;
-    nonOperationalSpending: number;
-    operationalSpending: number;
+	id: string;
+	month: string;
+	income: number;
+	spending: number;
+	nonOperationalSpending: number;
+	operationalSpending: number;
 }
 
 export interface Day {
-    id: string;
-    date: string;
-    income: number;
-    spending: number;
+	id: string;
+	date: string;
+	income: number;
+	spending: number;
 }
-
 
 export interface GetKpisResponse {
 	id: string;
@@ -28,6 +27,17 @@ export interface GetKpisResponse {
 	totalIncome: number;
 	totalSpending: number;
 	spendingByCategories: number;
-    monthlyData: Array<Month>;
-    dailyData: Array<Day>;
+	monthlyData: Array<Month>;
+	dailyData: Array<Day>;
+}
+
+export interface GetTransactionsResponse {
+	id: string;
+	_id: string;
+	__v: number;
+	amount: number;
+	buyer: string;
+	productIds: Array<string>;
+    createdAt: string;
+    updatedAt: string;  
 }

@@ -1,6 +1,6 @@
 import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
-import { useGetKpisQuery } from '@/state/api';
+import { useGetKpisQuery, useGetTransactionsQuery } from '@/state/api';
 import { Experimental_CssVarsProvider, useTheme } from '@mui/material';
 import { useMemo } from 'react';
 import React from 'react';
@@ -19,7 +19,9 @@ type Props = {};
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
-	console.log('data:', data);
+	const { data: transactionsData } = useGetTransactionsQuery();
+	console.log('transactionsData: ', transactionsData);
+	// console.log('data:', data);
 	const incomeSpending = useMemo(() => {
 		return (
 			data &&
@@ -109,8 +111,7 @@ const Row1 = (props: Props) => {
 					</AreaChart>
 				</ResponsiveContainer>
 			</DashboardBox>
-			<DashboardBox gridArea="b">
-			</DashboardBox>
+			<DashboardBox gridArea="b"></DashboardBox>
 			<DashboardBox gridArea="c"></DashboardBox>
 		</>
 	);
