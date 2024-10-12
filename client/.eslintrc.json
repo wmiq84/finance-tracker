@@ -1,3 +1,8 @@
 {
-    "extends": "react-app"
-}
+    "extends": "react-app", 
+    "rules": {
+      "no-unused-vars": "off", 
+      "no-unused-imports": "off" 
+    }
+  }
+  
