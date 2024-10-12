@@ -29,9 +29,7 @@ const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
 	const { data: incomeData } = useGetIncomesQuery();
-	const { data: transactionData } = useGetTransactionsQuery();
 	console.log('incomeData: ', incomeData);
-	// console.log('transactionData: ', transactionData);
 	const incomeColumns = [
 		{
 			field: 'date',
@@ -153,7 +151,7 @@ const Row1 = (props: Props) => {
 			<DashboardBox gridArea="b"></DashboardBox>
 			<DashboardBox gridArea="c">
 				<BoxHeader
-					title="Recent Income"
+					title="Recent Incomes"
 					sideText={`${incomeData?.length} sources`}
 				></BoxHeader>
 				<Box
