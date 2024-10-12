@@ -1,7 +1,6 @@
 export const kpis = [
 	{
 		_id: '63bf8239f03239e002001612',
-		totalProfit: '$212000.00',
 		totalIncome: '$283000.00',
 		totalSpending: '$71000.00',
 		monthlyData: [
@@ -434,7 +433,7 @@ export const kpis = [
 			{ date: '2023-01-01', income: '$832.70', spending: '$664.41' },
 		],
 		spendingByCategory: {
-			salaries: '$38000.00',
+			food: '$38000.00',
 			supplies: '$13000.00',
 			services: '$10000.00',
 		},

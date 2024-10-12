@@ -25,7 +25,6 @@ export interface GetKpisResponse {
 	id: string;
 	_id: string;
 	__v: number;
-	totalProfit: number;
 	totalIncome: number;
 	totalSpending: number;
 	spendingByCategories: number;
