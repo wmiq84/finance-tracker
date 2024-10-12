@@ -14,13 +14,16 @@ const Navbar = (props: Props) => {
 			{/* Left side of navbar */}
 			<FlexBetween gap="0.75rem">
 				<AttachMoneyIcon sx={{ fontSize: '28px' }}></AttachMoneyIcon>
-				<Typography variant="h4" fontSize="16px">
+				<Typography variant="h4" fontSize="16px" color={palette.grey[200]}>
 					Finance Dashboard
 				</Typography>
 			</FlexBetween>
 			{/* Right side of navbar */}
 			<FlexBetween gap="2rem">
-				<Box sx={{ '&:hover': { color: palette.primary[100] } }}>
+				<Box
+					color={palette.grey[200]}
+					sx={{ '&:hover': { color: palette.primary[100] } }}
+				>
 					<Link
 						to="/"
 						onClick={() => setSelected('dashboard')}
@@ -31,8 +34,11 @@ const Navbar = (props: Props) => {
 					>
 						Dashboard
 					</Link>
-                    </Box>
-                    <Box sx={{ '&:hover': { color: palette.primary[100] } }}>
+				</Box>
+				<Box
+					color={palette.grey[200]}
+					sx={{ '&:hover': { color: palette.primary[100] } }}
+				>
 					<Link
 						to="/predictions"
 						onClick={() => setSelected('predictions')}

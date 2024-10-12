@@ -1,7 +1,16 @@
 import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
-import { useGetKpisQuery, useGetProductsQuery, useGetTransactionsQuery } from '@/state/api';
-import { Experimental_CssVarsProvider, useTheme, Box } from '@mui/material';
+import {
+	useGetKpisQuery,
+	useGetProductsQuery,
+	useGetTransactionsQuery,
+} from '@/state/api';
+import {
+	Experimental_CssVarsProvider,
+	useTheme,
+	Box,
+	Hidden,
+} from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import React from 'react';
@@ -25,23 +34,23 @@ const Row1 = (props: Props) => {
 	// console.log('transactionData: ', transactionData);
 	const productColumns = [
 		{
-			field: "_id",
-			headerName: "id",
+			field: '_id',
+			headerName: 'id',
 			flex: 1,
 		},
 		{
-			field: "expense",
-			headerName: "Expense",
+			field: 'expense',
+			headerName: 'Expense',
 			flex: 0.5,
 			renderCell: (params: GridCellParams) => `$${params.value}`,
 		},
 		{
-			field: "price",
-			headerName: "Price",
+			field: 'price',
+			headerName: 'Price',
 			flex: 0.5,
 			renderCell: (params: GridCellParams) => `$${params.value}`,
 		},
-	]
+	];
 
 	const incomeSpending = useMemo(() => {
 		return (
@@ -105,12 +114,14 @@ const Row1 = (props: Props) => {
 							dataKey="name"
 							tickLine={false}
 							style={{ fontSize: '10px' }}
+							stroke={palette.grey[200]}
 						/>
 						<YAxis
 							tickLine={false}
 							axisLine={{ strokeWidth: '0' }}
 							style={{ fontSize: '10px' }}
 							domain={[8000, 23000]}
+							stroke={palette.grey[200]}
 						/>
 						<Tooltip />
 						<Area
@@ -134,14 +145,37 @@ const Row1 = (props: Props) => {
 			</DashboardBox>
 			<DashboardBox gridArea="b"></DashboardBox>
 			<DashboardBox gridArea="c">
-				<BoxHeader title="Recent Income" sideText={`${productData?.length} products`}></BoxHeader>
-				<Box mt="0.5rem" p="0 0.5rem" height="75%" sx={{
-					"& .MuiDataGrid-root": {
-						color: palette.grey[300],
-						border: "none",
-					}
-				}}>
-					<DataGrid rows={productData || []} columns={productColumns}/>
+				<BoxHeader
+					title="Recent Income"
+					sideText={`${productData?.length} products`}
+				></BoxHeader>
+				<Box
+					mt="0.5rem"
+					p="0 0.5rem"
+					height="75%"
+					sx={{
+						'& .MuiDataGrid-root': {
+							color: palette.grey[200],
+							border: 'none',
+						},
+						'& .MuiDataGrid-cell': {
+							borderBottom: `1px solid ${palette.grey[800]} !important`,
+						},
+						'& .MuiDataGrid-columnHeaders': {
+							borderBottom: `1px solid ${palette.grey[800]} !important`,
+						},
+						'& .MuiDataGrid-columnSeparator': {
+							visiblity: 'hidden',
+						},
+					}}
+				>
+					<DataGrid
+						columnHeaderHeight={25}
+						rowHeight={35}
+						hideFooter={true}
+						rows={productData || []}
+						columns={productColumns}
+					/>
 				</Box>
 			</DashboardBox>
 		</>
