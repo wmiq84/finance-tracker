@@ -31,6 +31,17 @@ export interface GetKpisResponse {
 	dailyData: Array<Day>;
 }
 
+export interface GetProductsResponse {
+	id: string;
+	_id: string;
+	__v: number;
+	price: number;
+	expense: number;
+	transactions: Array<string>;
+	createdAt: string;
+	updatedAt: string;
+}
+
 export interface GetTransactionsResponse {
 	id: string;
 	_id: string;
@@ -38,6 +49,6 @@ export interface GetTransactionsResponse {
 	amount: number;
 	buyer: string;
 	productIds: Array<string>;
-    createdAt: string;
-    updatedAt: string;  
+	createdAt: string;
+	updatedAt: string;
 }

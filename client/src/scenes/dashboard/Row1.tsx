@@ -2,6 +2,7 @@ import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
 import { useGetKpisQuery, useGetTransactionsQuery } from '@/state/api';
 import { Experimental_CssVarsProvider, useTheme } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import React from 'react';
 import {
@@ -19,8 +20,8 @@ type Props = {};
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
-	const { data: transactionsData } = useGetTransactionsQuery();
-	console.log('transactionsData: ', transactionsData);
+	const { data: transactionData } = useGetTransactionsQuery();
+	console.log('transactionData: ', transactionData);
 	// console.log('data:', data);
 	const incomeSpending = useMemo(() => {
 		return (
@@ -112,7 +113,10 @@ const Row1 = (props: Props) => {
 				</ResponsiveContainer>
 			</DashboardBox>
 			<DashboardBox gridArea="b"></DashboardBox>
-			<DashboardBox gridArea="c"></DashboardBox>
+			<DashboardBox gridArea="c">
+				{/* <BoxHeader title="Recent Income" sideText="+4%"></BoxHeader>
+				<DataGrid></DataGrid> */}
+			</DashboardBox>
 		</>
 	);
 };
