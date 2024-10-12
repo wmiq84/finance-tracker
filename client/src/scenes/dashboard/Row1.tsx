@@ -165,7 +165,7 @@ const Row1 = (props: Props) => {
 							borderBottom: `1px solid ${palette.grey[800]} !important`,
 						},
 						'& .MuiDataGrid-columnSeparator': {
-							visiblity: 'hidden',
+							visibility: 'hidden',
 						},
 					}}
 				>
