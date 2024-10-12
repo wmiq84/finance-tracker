@@ -1,14 +1,13 @@
 import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
-import { useGetKpisQuery, useGetTransactionsQuery } from '@/state/api';
-import { Experimental_CssVarsProvider, useTheme } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useGetKpisQuery, useGetProductsQuery, useGetTransactionsQuery } from '@/state/api';
+import { Experimental_CssVarsProvider, useTheme, Box } from '@mui/material';
+import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import React from 'react';
 import {
 	ResponsiveContainer,
 	AreaChart,
-	CartesianGrid,
 	XAxis,
 	YAxis,
 	Tooltip,
@@ -20,9 +19,30 @@ type Props = {};
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
+	const { data: productData } = useGetProductsQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
-	console.log('transactionData: ', transactionData);
-	// console.log('data:', data);
+	// console.log('productData: ', productData);
+	// console.log('transactionData: ', transactionData);
+	const productColumns = [
+		{
+			field: "_id",
+			headerName: "id",
+			flex: 1,
+		},
+		{
+			field: "expense",
+			headerName: "Expense",
+			flex: 0.5,
+			renderCell: (params: GridCellParams) => `$${params.value}`,
+		},
+		{
+			field: "price",
+			headerName: "Price",
+			flex: 0.5,
+			renderCell: (params: GridCellParams) => `$${params.value}`,
+		},
+	]
+
 	const incomeSpending = useMemo(() => {
 		return (
 			data &&
@@ -114,8 +134,15 @@ const Row1 = (props: Props) => {
 			</DashboardBox>
 			<DashboardBox gridArea="b"></DashboardBox>
 			<DashboardBox gridArea="c">
-				{/* <BoxHeader title="Recent Income" sideText="+4%"></BoxHeader>
-				<DataGrid></DataGrid> */}
+				<BoxHeader title="Recent Income" sideText={`${productData?.length} products`}></BoxHeader>
+				<Box mt="0.5rem" p="0 0.5rem" height="75%" sx={{
+					"& .MuiDataGrid-root": {
+						color: palette.grey[300],
+						border: "none",
+					}
+				}}>
+					<DataGrid rows={productData || []} columns={productColumns}/>
+				</Box>
 			</DashboardBox>
 		</>
 	);
