@@ -23,25 +23,51 @@ const Row3 = () => {
 	const { data: incomeData } = useGetIncomesQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
 
-	const pieChartData = useMemo(() => {
+	const pieChartDataIncome = useMemo(() => {
+		if (data) {
+			const totalIncome = data[0].totalIncome;
+			console.log(Object.entries(data[0].incomeByCategory));
+			return (
+				Object.entries(data[0].incomeByCategory)
+					// filter out invalid and null values
+					.filter(([key, value]) => key !== '$*' && value !== null)
+					.map(([key, value]) => {
+						return [
+							{
+								name: key,
+								value: value,
+							},
+							{
+								name: `${key} of Total`,
+								value: totalIncome - value,
+							},
+						];
+					})
+			);
+		}
+	}, [data]);
+
+	const pieChartDataSpending = useMemo(() => {
 		if (data) {
 			const totalSpending = data[0].totalSpending;
 			console.log(Object.entries(data[0].spendingByCategory));
-			return Object.entries(data[0].spendingByCategory)
-				// filter out invalid and null values
-				.filter(([key, value]) => key !== '$*' && value !== null)
-				.map(([key, value]) => {
-					return [
-						{
-							name: key,
-							value: value,
-						},
-						{
-							name: `${key} of Total`,
-							value: totalSpending - value,
-						},
-					];
-				});
+			return (
+				Object.entries(data[0].spendingByCategory)
+					// filter out invalid and null values
+					.filter(([key, value]) => key !== '$*' && value !== null)
+					.map(([key, value]) => {
+						return [
+							{
+								name: key,
+								value: value,
+							},
+							{
+								name: `${key} of Total`,
+								value: totalSpending - value,
+							},
+						];
+					})
+			);
 		}
 	}, [data]);
 
@@ -51,12 +77,35 @@ const Row3 = () => {
 			<DashboardBox gridArea="h">
 				<BoxHeader title="Income and Transactions by Category" />
 				<FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
-					{pieChartData?.map((data, i) => (
+					{pieChartDataIncome?.map((data, i) => (
 						<Box key={`${data[0].name}-${i}`}>
 							<PieChart
 								width={110}
 								height={100}
-								// margin={{ top: 0, right: -10, left: 10, bottom: 0 }}
+							>
+								<Pie
+									stroke="none"
+									data={data}
+									innerRadius={18}
+									outerRadius={35}
+									paddingAngle={2}
+									dataKey="value"
+								>
+									{pieData.map((entry, index) => (
+										<Cell key={`cell-${index}`} fill={pieColors[index]} />
+									))}
+								</Pie>
+							</PieChart>
+							<Typography variant="h5">{data[0].name}</Typography>
+						</Box>
+					))}
+				</FlexBetween>
+				<FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
+					{pieChartDataSpending?.map((data, i) => (
+						<Box key={`${data[0].name}-${i}`}>
+							<PieChart
+								width={110}
+								height={100}
 							>
 								<Pie
 									stroke="none"

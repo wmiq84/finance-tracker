@@ -1,7 +1,15 @@
-export interface SpendingByCategories {
+export interface IncomeByCategories {
 	salaries: number;
+	gifts: number;
+	investments: number;
+	miscellaneous: number,
+}
+
+export interface SpendingByCategories {
+	food: number;
 	supplies: number;
 	services: number;
+	miscellaneous: number,
 }
 
 export interface Month {
@@ -26,6 +34,7 @@ export interface GetKpisResponse {
 	__v: number;
 	totalIncome: number;
 	totalSpending: number;
+	incomeByCategories: number;
 	spendingByCategories: number;
 	monthlyData: Array<Month>;
 	dailyData: Array<Day>;

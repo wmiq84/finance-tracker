@@ -1,8 +1,8 @@
 export const kpis = [
 	{
 		_id: '63bf8239f03239e002001612',
-		totalIncome: '$283000.00',
-		totalSpending: '$71000.00',
+		totalIncome: '$100000.00',
+		totalSpending: '$100000.00',
 		monthlyData: [
 			{
 				month: 'january',
@@ -432,10 +432,17 @@ export const kpis = [
 			{ date: '2022-12-31', income: '$549.52', spending: '$577.92' },
 			{ date: '2023-01-01', income: '$832.70', spending: '$664.41' },
 		],
+		incomeByCategory: {
+			salary: '$25000.00',
+			gifts: '$25000.00',
+			investments: '$40000.00',
+			miscellaneous: '$10000.00'
+		},
 		spendingByCategory: {
-			food: '$38000.00',
-			supplies: '$13000.00',
-			services: '$10000.00',
+			food: '$25000.00',
+			supplies: '$25000.00',
+			services: '$40000.00',
+			miscellaneous: '$10000.00',
 		},
 	},
 ];
@@ -451,7 +458,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239e002001601',
 		amount: '$60.13',
 		date: '2023-02-01',
-		category: 'Gift',
+		category: 'Gifts',
 	},
 	{
 		_id: '63bf7ac9f03239e002001602',
@@ -493,7 +500,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239343e00169d',
 		amount: '$147.32',
 		date: '2023-09-01',
-		category: 'Gift',
+		category: 'Gifts',
 	},
 	{
 		_id: '63bf7ac9f03239343e00169e',
@@ -505,7 +512,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239343e00169f',
 		amount: '$162.43',
 		date: '2023-11-01',
-		category: 'Investment',
+		category: 'Investments',
 	},
 	{
 		_id: '63bf7ac9f03239343e0016a0',
@@ -559,7 +566,7 @@ export const incomes = [
 		_id: '63bf7ac9f032394cbd00169a',
 		amount: '$35.75',
 		date: '2024-08-01',
-		category: 'Gift',
+		category: 'Gifts',
 	},
 	{
 		_id: '63bf7ac9f032394cbd00169b',
@@ -571,7 +578,7 @@ export const incomes = [
 		_id: '63bf7ac9f032394cbd00169c',
 		amount: '$86.45',
 		date: '2024-10-01',
-		category: 'Investment',
+		category: 'Investments',
 	},
 	{
 		_id: '63bf7ac9f032394cbd00169d',
@@ -613,7 +620,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239cf1b00169c',
 		amount: '$34.52',
 		date: '2025-05-01',
-		category: 'Gift',
+		category: 'Gifts',
 	},
 	{
 		_id: '63bf7ac9f03239cf1b00169d',
@@ -655,7 +662,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239aec9001556',
 		amount: '$91.72',
 		date: '2025-12-01',
-		category: 'Investment',
+		category: 'Investments',
 	},
 	{
 		_id: '63bf7ac9f03239554c002443',
@@ -673,7 +680,7 @@ export const incomes = [
 		_id: '63bf7ac9f03239554c002445',
 		amount: '$155.13',
 		date: '2026-03-01',
-		category: 'Gift',
+		category: 'Gifts',
 	},
 	{
 		_id: '63bf7ac9f03239554c002446',
