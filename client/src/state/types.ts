@@ -30,7 +30,6 @@ export interface Day {
 
 export interface GetKpisResponse {
 	id: string;
-	_id: string;
 	__v: number;
 	totalIncome: number;
 	totalSpending: number;
@@ -42,7 +41,6 @@ export interface GetKpisResponse {
 
 export interface GetIncomesResponse {
 	id: string;
-	_id: string;
 	__v: number;
 	amount: number;
 	expense: number;
@@ -53,11 +51,23 @@ export interface GetIncomesResponse {
 
 export interface GetTransactionsResponse {
 	id: string;
-	_id: string;
 	__v: number;
 	amount: number;
 	buyer: string;
 	incomeIds: Array<string>;
+	createdAt: string;
+	updatedAt: string;
+}
+
+
+export interface GetGoalsResponse {
+	id: string;
+	__v: number;
+	title: string;
+	amountSaved: number;
+	targetAmount: number;
+	dueDate: string;
+	type: boolean;
 	createdAt: string;
 	updatedAt: string;
 }

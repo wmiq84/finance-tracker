@@ -1,6 +1,5 @@
 export const kpis = [
 	{
-		_id: '63bf8239f03239e002001612',
 		totalIncome: '$100000.00',
 		totalSpending: '$100000.00',
 		monthlyData: [
@@ -436,7 +435,7 @@ export const kpis = [
 			salary: '$25000.00',
 			gifts: '$25000.00',
 			investments: '$40000.00',
-			miscellaneous: '$10000.00'
+			miscellaneous: '$10000.00',
 		},
 		spendingByCategory: {
 			food: '$25000.00',
@@ -449,253 +448,211 @@ export const kpis = [
 
 export const incomes = [
 	{
-		_id: '63bf7ac9f03239e002001600',
 		amount: '$43.41',
 		date: '2023-01-01',
 		category: 'Side Gig',
 	},
 	{
-		_id: '63bf7ac9f03239e002001601',
 		amount: '$60.13',
 		date: '2023-02-01',
 		category: 'Gifts',
 	},
 	{
-		_id: '63bf7ac9f03239e002001602',
 		amount: '$195.05',
 		date: '2023-03-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239e002001603',
 		amount: '$46.25',
 		date: '2023-04-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239e002001604',
 		amount: '$87.41',
 		date: '2023-05-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239e002001605',
 		amount: '$73.28',
 		date: '2023-06-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239343e00169b',
 		amount: '$130.65',
 		date: '2023-07-01',
 		category: 'Side Gig',
 	},
 	{
-		_id: '63bf7ac9f03239343e00169c',
 		amount: '$198.54',
 		date: '2023-08-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239343e00169d',
 		amount: '$147.32',
 		date: '2023-09-01',
 		category: 'Gifts',
 	},
 	{
-		_id: '63bf7ac9f03239343e00169e',
 		amount: '$187.22',
 		date: '2023-10-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239343e00169f',
 		amount: '$162.43',
 		date: '2023-11-01',
 		category: 'Investments',
 	},
 	{
-		_id: '63bf7ac9f03239343e0016a0',
 		amount: '$30.09',
 		date: '2023-12-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001551',
 		amount: '$31.07',
 		date: '2024-01-01',
 		category: 'Miscellaneous',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001552',
 		amount: '$12.21',
 		date: '2024-02-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001553',
 		amount: '$76.31',
 		date: '2024-03-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001554',
 		amount: '$169.87',
 		date: '2024-04-01',
 		category: 'Salaryment',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001555',
 		amount: '$187.36',
 		date: '2024-05-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f0323901e6001556',
 		amount: '$67.29',
 		date: '2024-06-01',
 		category: 'Side Gig',
 	},
 	{
-		_id: '63bf7ac9f032394cbd001699',
 		amount: '$85.35',
 		date: '2024-07-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f032394cbd00169a',
 		amount: '$35.75',
 		date: '2024-08-01',
 		category: 'Gifts',
 	},
 	{
-		_id: '63bf7ac9f032394cbd00169b',
 		amount: '$59.80',
 		date: '2024-09-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f032394cbd00169c',
 		amount: '$86.45',
 		date: '2024-10-01',
 		category: 'Investments',
 	},
 	{
-		_id: '63bf7ac9f032394cbd00169d',
 		amount: '$142.21',
 		date: '2024-11-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f032394cbd00169e',
 		amount: '$10.01',
 		date: '2024-12-01',
 		category: 'Miscellaneous',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b001698',
 		amount: '$112.78',
 		date: '2025-01-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b001699',
 		amount: '$156.34',
 		date: '2025-02-01',
 		category: 'Side Gig',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b00169a',
 		amount: '$119.34',
 		date: '2025-03-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b00169b',
 		amount: '$87.49',
 		date: '2025-04-01',
 		category: 'Side Gig',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b00169c',
 		amount: '$34.52',
 		date: '2025-05-01',
 		category: 'Gifts',
 	},
 	{
-		_id: '63bf7ac9f03239cf1b00169d',
 		amount: '$90.83',
 		date: '2025-06-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001551',
 		amount: '$181.98',
 		date: '2025-07-01',
 		category: 'Miscellaneous',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001552',
 		amount: '$62.17',
 		date: '2025-08-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001553',
 		amount: '$83.76',
 		date: '2025-09-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001554',
 		amount: '$62.47',
 		date: '2025-10-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001555',
 		amount: '$54.68',
 		date: '2025-11-01',
 		category: 'Salaryment',
 	},
 	{
-		_id: '63bf7ac9f03239aec9001556',
 		amount: '$91.72',
 		date: '2025-12-01',
 		category: 'Investments',
 	},
 	{
-		_id: '63bf7ac9f03239554c002443',
 		amount: '$159.65',
 		date: '2026-01-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239554c002444',
 		amount: '$190.89',
 		date: '2026-02-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239554c002445',
 		amount: '$155.13',
 		date: '2026-03-01',
 		category: 'Gifts',
 	},
 	{
-		_id: '63bf7ac9f03239554c002446',
 		amount: '$43.82',
 		date: '2026-04-01',
 		category: 'Miscellaneous',
 	},
 	{
-		_id: '63bf7ac9f03239554c002447',
 		amount: '$58.31',
 		date: '2026-05-01',
 		category: 'Salary',
 	},
 	{
-		_id: '63bf7ac9f03239554c002448',
 		amount: '$138.47',
 		date: '2026-06-01',
 		category: 'Side Gig',
@@ -704,63 +661,70 @@ export const incomes = [
 
 export const transactions = [
 	{
-		_id: '63bf7ccef03239e002001606',
 		amount: '$154.37',
 		date: '2024-07-01',
 		category: 'Food',
 	},
 	{
-		_id: '63bf7ccef03239e002001607',
 		amount: '$207.45',
 		date: '2024-07-02',
 		category: 'Travel',
 	},
 	{
-		_id: '63bf7ccef03239e002001608',
 		amount: '$23.74',
 		date: '2024-07-03',
 		category: 'Entertainment',
 	},
 	{
-		_id: '63bf7ccef03239e002001609',
 		amount: '$156.67',
 		date: '2024-07-04',
 		category: 'Health',
 	},
 	{
-		_id: '63bf7ccef03239e00200160a',
 		amount: '$174.95',
 		date: '2024-07-05',
 		category: 'Groceries',
 	},
 	{
-		_id: '63bf7ccef03239e00200160b',
 		amount: '$245.32',
 		date: '2024-07-06',
 		category: 'Travel',
 	},
 	{
-		_id: '63bf7ccef03239e00200160c',
 		amount: '$133.57',
 		date: '2024-07-07',
 		category: 'Health',
 	},
 	{
-		_id: '63bf7ccef03239e00200160d',
 		amount: '$122.49',
 		date: '2024-07-08',
 		category: 'Food',
 	},
 	{
-		_id: '63bf7ccef03239e00200160e',
 		amount: '$270.23',
 		date: '2024-07-09',
 		category: 'Travel',
 	},
 	{
-		_id: '63bf7ccef03239e00200160f',
 		amount: '$173.38',
 		date: '2024-07-10',
 		category: 'Groceries',
+	},
+];
+
+export const goals = [
+	{
+		title: 'Kitchen Remodel',
+		amountSaved: '$1800.00',
+		targetAmount: '$2900.00',
+		dueDate: '2025-02-10',
+		completed: false,
+	},
+	{
+		title: 'New Car',
+		amountSaved: '$7800.00',
+		targetAmount: '$10000.00',
+		dueDate: '2025-07-18',
+		completed: false,
 	},
 ];

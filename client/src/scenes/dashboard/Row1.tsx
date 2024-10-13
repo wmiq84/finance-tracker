@@ -29,7 +29,7 @@ const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
 	const { data: incomeData } = useGetIncomesQuery();
-	console.log('incomeData: ', incomeData);
+	// console.log('incomeData: ', incomeData);
 	const incomeColumns = [
 		{
 			field: 'date',

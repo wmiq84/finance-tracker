@@ -4,12 +4,14 @@ import {
 	useGetKpisQuery,
 	useGetIncomesQuery,
 	useGetTransactionsQuery,
+	useGetGoalsQuery,
 } from '@/state/api';
 import {
 	Experimental_CssVarsProvider,
 	useTheme,
 	Box,
 	Hidden,
+	Card,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import { useMemo } from 'react';
@@ -21,7 +23,8 @@ const Row2 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
-	console.log('transactionData: ', transactionData);
+	const { data: goalData } = useGetGoalsQuery();
+	console.log('goalsData: ', goalData);
 	const transactionColumns = [
 		{
 			field: 'date',
@@ -63,7 +66,16 @@ const Row2 = (props: Props) => {
 	}, [data]);
 	return (
 		<>
-			<DashboardBox gridArea="d"></DashboardBox>
+			<DashboardBox gridArea="d">
+				<Card
+					variant="outlined"
+					sx={{
+						mb: 2,
+						p: 2,
+						backgroundColor: '#f5f5f5',
+					}}
+				></Card>
+			</DashboardBox>
 			<DashboardBox gridArea="e"></DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader
