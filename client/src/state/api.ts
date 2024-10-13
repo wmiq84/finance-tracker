@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { GetKpisResponse, GetIncomesResponse, GetTransactionsResponse, GetGoalsResponse } from './types';
+import { GetKpisResponse, GetIncomesResponse, GetTransactionsResponse, GetGoalsResponse, GetBudgetsResponse } from './types';
 
 export const api = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
 	reducerPath: 'main',
-	tagTypes: ['Kpis', 'Incomes', 'Transactions', 'Goals'],
+	tagTypes: ['Kpis', 'Incomes', 'Transactions', 'Goals', 'Budgets'],
 	endpoints: (build) => ({
 		getKpis: build.query<Array<GetKpisResponse>, void>({
 			query: () => 'kpi/kpis/',
@@ -22,7 +22,11 @@ export const api = createApi({
 			query: () => 'goal/goals/',
 			providesTags: ['Goals'],
 		}),
+		getBudgets: build.query<Array<GetBudgetsResponse>, void>({
+			query: () => 'budget/budgets/',
+			providesTags: ['Budgets'],
+		}),
 	}),
 });
 
-export const { useGetKpisQuery, useGetIncomesQuery, useGetTransactionsQuery, useGetGoalsQuery } = api;
+export const { useGetKpisQuery, useGetIncomesQuery, useGetTransactionsQuery, useGetGoalsQuery, useGetBudgetsQuery } = api;

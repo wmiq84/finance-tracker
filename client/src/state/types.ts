@@ -71,3 +71,16 @@ export interface GetGoalsResponse {
 	createdAt: string;
 	updatedAt: string;
 }
+
+
+export interface GetBudgetsResponse {
+	id: string;
+	__v: number;
+	title: string;
+	amountSpent: number;
+	targetAmount: number;
+	dueDate: string;
+	completed: boolean;
+	createdAt: string;
+	updatedAt: string;
+}

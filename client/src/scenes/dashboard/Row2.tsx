@@ -136,7 +136,9 @@ const Row2 = (props: Props) => {
 					</Box>
 				))}
 			</DashboardBox>
-			<DashboardBox gridArea="e"></DashboardBox>
+			<DashboardBox gridArea="e">
+
+			</DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader
 					title="Recent Transactions"

@@ -14,7 +14,7 @@ const Navbar = (props: Props) => {
 			{/* Left side of navbar */}
 			<FlexBetween gap="0.75rem">
 				<AttachMoneyIcon sx={{ fontSize: '28px' }}></AttachMoneyIcon>
-				<Typography variant="h4" fontSize="16px" color={palette.grey[200]}>
+				<Typography variant="h4" fontSize="25px" color={palette.grey[200]}>
 					Finance Dashboard
 				</Typography>
 			</FlexBetween>
