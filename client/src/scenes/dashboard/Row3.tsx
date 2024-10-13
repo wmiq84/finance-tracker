@@ -26,8 +26,11 @@ const Row3 = () => {
 	const pieChartData = useMemo(() => {
 		if (data) {
 			const totalSpending = data[0].totalSpending;
-			return Object.entries(data[0].spendingByCategory).map(
-				([key, value]) => {
+			console.log(Object.entries(data[0].spendingByCategory));
+			return Object.entries(data[0].spendingByCategory)
+				// filter out invalid and null values
+				.filter(([key, value]) => key !== '$*' && value !== null)
+				.map(([key, value]) => {
 					return [
 						{
 							name: key,
@@ -38,8 +41,7 @@ const Row3 = () => {
 							value: totalSpending - value,
 						},
 					];
-				}
-			);
+				});
 		}
 	}, [data]);
 
@@ -58,7 +60,7 @@ const Row3 = () => {
 							>
 								<Pie
 									stroke="none"
-									data={pieData}
+									data={data}
 									innerRadius={18}
 									outerRadius={35}
 									paddingAngle={2}
