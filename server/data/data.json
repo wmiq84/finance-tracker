@@ -1,0 +1,166 @@
+{
+    "kpis": [
+      {
+        "totalIncome": "$100000.00",
+        "totalSpending": "$100000.00",
+        "monthlyData": [
+          {
+            "month": "january",
+            "income": "$15989.64",
+            "spending": "$14231.73"
+          },
+          {
+            "month": "february",
+            "income": "$15832.77",
+            "spending": "$11677.84"
+          },
+          {
+            "month": "march",
+            "income": "$16481.27",
+            "spending": "$14664.03"
+          },
+          {
+            "month": "april",
+            "income": "$18229.38",
+            "spending": "$12336.52"
+          },
+          {
+            "month": "may",
+            "income": "$17401.79",
+            "spending": "$11160.61"
+          },
+          {
+            "month": "june",
+            "income": "$18274.03",
+            "spending": "$12311.61"
+          },
+          {
+            "month": "july",
+            "income": "$19349.98",
+            "spending": "$15431.81"
+          },
+          {
+            "month": "august",
+            "income": "$16647.29",
+            "spending": "$13213.71"
+          },
+          {
+            "month": "september",
+            "income": "$19344.07",
+            "spending": "$17405.92"
+          },
+          {
+            "month": "october",
+            "income": "$21160.22",
+            "spending": "$12990.58"
+          },
+          {
+            "month": "november",
+            "income": "$22655.03",
+            "spending": "$17140.80"
+          },
+          {
+            "month": "december",
+            "income": "$17757.75",
+            "spending": "$15266.97"
+          }
+        ],
+        "dailyData": [
+          {
+            "date": "2022-01-02",
+            "income": "$1498.94",
+            "spending": "$430.64"
+          },
+          {
+            "date": "2022-01-03",
+            "income": "$935.08",
+            "spending": "$329.32"
+          },
+          {
+            "date": "2022-01-04",
+            "income": "$1350.96",
+            "spending": "$562.49"
+          }
+        ],
+        "incomeByCategory": {
+          "salary": "$25000.00",
+          "gifts": "$25000.00",
+          "investments": "$40000.00",
+          "miscellaneous": "$10000.00"
+        },
+        "spendingByCategory": {
+          "food": "$25000.00",
+          "supplies": "$25000.00",
+          "services": "$40000.00",
+          "miscellaneous": "$10000.00"
+        }
+      }
+    ],
+    "incomes": [
+      {
+        "amount": "$43.41",
+        "date": "2023-01-01",
+        "category": "Side Gig"
+      },
+      {
+        "amount": "$60.13",
+        "date": "2023-02-01",
+        "category": "Gifts"
+      },
+      {
+        "amount": "$195.05",
+        "date": "2023-03-01",
+        "category": "Salary"
+      }
+    ],  
+    "transactions": [   
+      {
+        "amount": "$154.37",
+        "date": "2024-07-01",
+        "category": "Food"
+      },
+      {
+        "amount": "$207.45",
+        "date": "2024-07-02",
+        "category": "Travel"
+      },
+      {
+        "amount": "$23.74",
+        "date": "2024-07-03",
+        "category": "Entertainment"
+      }
+    ],
+    "goals": [
+      {
+        "title": "Kitchen Remodel",
+        "amountSaved": "$1800.00",
+        "targetAmount": "$2900.00",
+        "dueDate": "2025-02-10",
+        "completed": false
+      },
+      {
+        "title": "New Car",
+        "amountSaved": "$7800.00",
+        "targetAmount": "$10000.00",
+        "dueDate": "2025-07-18",
+        "completed": false
+      }
+    ],
+    "budgets": [
+      {
+        "title": "Video Games",
+        "amountSpent": "$40.00",
+        "targetAmount": "$50.00",
+        "dueDate": "2024-12-30",
+        "completed": false
+      },
+      {
+        "title": "Eating Out",
+        "amountSpent": "$300.00",
+        "targetAmount": "$450.00",
+        "dueDate": "2024-12-30",
+        "completed": false
+      }
+    ]
+  }
+  

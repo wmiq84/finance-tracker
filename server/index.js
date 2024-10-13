@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import fs from 'fs';
 import kpiRoutes from './routes/kpi.js';
 import incomeRoutes from './routes/income.js';
 import transactionRoutes from './routes/transaction.js';
@@ -15,7 +16,7 @@ import Income from './models/Income.js';
 import Transaction from './models/Transaction.js';
 import Goal from './models/Goal.js';
 import Budget from './models/Budget.js';
-import { kpis, incomes, transactions, goals, budgets } from './data/data.js';
+// import { kpis, incomes, transactions, goals, budgets } from './data/data.js';
 
 // configurations
 dotenv.config();
@@ -35,6 +36,9 @@ app.use('/transaction', transactionRoutes);
 app.use('/goal', goalRoutes);
 app.use('/budget', budgetRoutes);
 
+// load data from json
+const data = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'));
+
 // mongoose setup
 const PORT = process.env.PORT || 9000;
 mongoose
@@ -45,11 +49,11 @@ mongoose
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 		// comment out after initial
-		// await mongoose.connection.db.dropDatabase();
-		// KPI.insertMany(kpis);
-		// Transaction.insertMany(transactions);
-		// Income.insertMany(incomes);
-		// Goal.insertMany(goals);
-		// Budget.insertMany(budgets);
+		await mongoose.connection.db.dropDatabase();
+		KPI.insertMany(data.kpis);
+		Transaction.insertMany(data.transactions);
+		Income.insertMany(data.incomes);
+		Goal.insertMany(data.goals);
+		Budget.insertMany(data.budgets);
 	})
 	.catch((error) => console.log(`${error} did not connect`));
