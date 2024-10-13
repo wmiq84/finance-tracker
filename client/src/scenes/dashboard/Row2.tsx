@@ -96,29 +96,40 @@ const Row2 = (props: Props) => {
 				<BoxHeader title="Goals"></BoxHeader>
 				{goalCardData?.map((goalData, i) => (
 					<Box mt="0.5rem" p="0 1rem" key={`${goalData.title}`}>
-						<FlexBetween>
+						<FlexBetween mb="0.25rem">
 							<Typography
 								variant="h5"
-								sx={{ fontSize: 16, color: palette.grey[300] }}
+								sx={{ fontSize: 16, color: palette.grey[200] }}
 							>{`${goalData.title}`}</Typography>
 							{goalData.completed ? (
 								<Typography
 									variant="h5"
-									sx={{ fontSize: 16, color: palette.grey[300] }}
+									sx={{ fontSize: 16, color: palette.grey[200] }}
 								>
 									completed
 								</Typography>
 							) : (
 								<Typography
 									variant="h5"
-									sx={{ fontSize: 16, color: palette.grey[300] }}
+									sx={{ fontSize: 16, color: palette.grey[200] }}
 								>
-									{goalData.dueDate}
+									Due: {goalData.dueDate}
 								</Typography>
 							)}
 						</FlexBetween>
-						<LinearProgress variant="determinate" value={goalData.progress} />
-						<FlexBetween>
+						<LinearProgress
+							variant="determinate"
+							value={goalData.progress}
+							sx={{
+								height: 10,
+								borderRadius: 5,
+								backgroundColor: palette.grey[700],
+								'& .MuiLinearProgress-bar': {
+									borderRadius: 5,
+								},
+							}}
+						/>{' '}
+						<FlexBetween mt="0.25rem">
 							<Typography>${goalData.amountSaved}</Typography>
 							<Typography>${goalData.targetAmount}</Typography>
 						</FlexBetween>
