@@ -24,7 +24,22 @@ const Row2 = (props: Props) => {
 	const { data } = useGetKpisQuery();
 	const { data: transactionData } = useGetTransactionsQuery();
 	const { data: goalData } = useGetGoalsQuery();
-	console.log('goalsData: ', goalData);
+
+	const GoalCard = useMemo(() => {
+		if (goalData) {
+			const { title, amountSaved, targetAmount, dueDate, completed } = goalData[0];
+			const progress = (amountSaved / targetAmount) * 100;
+			return {
+				title,
+				amountSaved,
+				targetAmount,
+				dueDate,
+				completed,
+				progress,
+			};
+		}
+	}, [goalData]);
+
 	const transactionColumns = [
 		{
 			field: 'date',
@@ -67,12 +82,12 @@ const Row2 = (props: Props) => {
 	return (
 		<>
 			<DashboardBox gridArea="d">
+				<BoxHeader title="Goals"></BoxHeader>
 				<Card
 					variant="outlined"
 					sx={{
 						mb: 2,
 						p: 2,
-						backgroundColor: '#f5f5f5',
 					}}
 				></Card>
 			</DashboardBox>

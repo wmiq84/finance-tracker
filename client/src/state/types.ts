@@ -67,7 +67,7 @@ export interface GetGoalsResponse {
 	amountSaved: number;
 	targetAmount: number;
 	dueDate: string;
-	type: boolean;
+	completed: boolean;
 	createdAt: string;
 	updatedAt: string;
 }
