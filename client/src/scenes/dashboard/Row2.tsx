@@ -37,7 +37,11 @@ const Row2 = (props: Props) => {
 						title,
 						amountSaved,
 						targetAmount,
-						dueDate,
+						dueDate: new Date(dueDate).toLocaleDateString('en-US', {
+							year: 'numeric',
+							month: '2-digit',
+							day: '2-digit',
+						}),
 						completed,
 						progress,
 					};
@@ -91,21 +95,35 @@ const Row2 = (props: Props) => {
 			<DashboardBox gridArea="d">
 				<BoxHeader title="Goals"></BoxHeader>
 				{goalCardData?.map((goalData, i) => (
-					<Box mt="0.5rem" p="0 0.5rem" key={`${goalData.title}`}>
+					<Box mt="0.5rem" p="0 1rem" key={`${goalData.title}`}>
 						<FlexBetween>
-								<Typography variant="h5" sx={{fontSize: 16, color: palette.grey[300]}}>{`${goalData.title}`}</Typography>
+							<Typography
+								variant="h5"
+								sx={{ fontSize: 16, color: palette.grey[300] }}
+							>{`${goalData.title}`}</Typography>
+							{goalData.completed ? (
+								<Typography
+									variant="h5"
+									sx={{ fontSize: 16, color: palette.grey[300] }}
+								>
+									completed
+								</Typography>
+							) : (
+								<Typography
+									variant="h5"
+									sx={{ fontSize: 16, color: palette.grey[300] }}
+								>
+									{goalData.dueDate}
+								</Typography>
+							)}
 						</FlexBetween>
 						<LinearProgress variant="determinate" value={goalData.progress} />
+						<FlexBetween>
+							<Typography>${goalData.amountSaved}</Typography>
+							<Typography>${goalData.targetAmount}</Typography>
+						</FlexBetween>
 					</Box>
 				))}
-
-				{/* <Card
-					variant="outlined"
-					sx={{
-						mb: 2,
-						p: 2,
-					}}
-				></Card> */}
 			</DashboardBox>
 			<DashboardBox gridArea="e"></DashboardBox>
 			<DashboardBox gridArea="f">
