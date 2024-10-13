@@ -1,5 +1,6 @@
 import BoxHeader from '@/components/BoxHeader';
 import DashboardBox from '@/components/DashboardBox';
+import FlexBetween from '@/components/FlexBetween';
 import {
 	useGetKpisQuery,
 	useGetIncomesQuery,
@@ -12,6 +13,8 @@ import {
 	Box,
 	Hidden,
 	Card,
+	LinearProgress,
+	Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import { useMemo } from 'react';
@@ -25,19 +28,23 @@ const Row2 = (props: Props) => {
 	const { data: transactionData } = useGetTransactionsQuery();
 	const { data: goalData } = useGetGoalsQuery();
 
-	const GoalCard = useMemo(() => {
+	const goalCardData = useMemo(() => {
 		if (goalData) {
-			const { title, amountSaved, targetAmount, dueDate, completed } = goalData[0];
-			const progress = (amountSaved / targetAmount) * 100;
-			return {
-				title,
-				amountSaved,
-				targetAmount,
-				dueDate,
-				completed,
-				progress,
-			};
+			return goalData.map(
+				({ title, amountSaved, targetAmount, dueDate, completed }) => {
+					const progress = (amountSaved / targetAmount) * 100;
+					return {
+						title,
+						amountSaved,
+						targetAmount,
+						dueDate,
+						completed,
+						progress,
+					};
+				}
+			);
 		}
+		return [];
 	}, [goalData]);
 
 	const transactionColumns = [
@@ -83,13 +90,22 @@ const Row2 = (props: Props) => {
 		<>
 			<DashboardBox gridArea="d">
 				<BoxHeader title="Goals"></BoxHeader>
-				<Card
+				{goalCardData?.map((goalData, i) => (
+					<Box mt="0.5rem" p="0 0.5rem" key={`${goalData.title}`}>
+						<FlexBetween>
+								<Typography variant="h5" sx={{fontSize: 16, color: palette.grey[300]}}>{`${goalData.title}`}</Typography>
+						</FlexBetween>
+						<LinearProgress variant="determinate" value={goalData.progress} />
+					</Box>
+				))}
+
+				{/* <Card
 					variant="outlined"
 					sx={{
 						mb: 2,
 						p: 2,
 					}}
-				></Card>
+				></Card> */}
 			</DashboardBox>
 			<DashboardBox gridArea="e"></DashboardBox>
 			<DashboardBox gridArea="f">
