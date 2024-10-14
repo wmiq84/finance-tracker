@@ -82,6 +82,23 @@ const Row1 = (props: Props) => {
 		);
 	}, [data]);
 
+	const getIncomeSpendingDomain = () => {
+		if (!incomeSpending || incomeSpending.length === 0) return [0, 0];
+		const incomes = incomeSpending.map((d) => d.income);
+		const spendings = incomeSpending.map((d) => d.spending);
+		const min = Math.min(...incomes, ...spendings);
+		const max = Math.max(...incomes, ...spendings);
+		return [Math.floor(min), Math.ceil(max)];
+	};
+
+	const getNetWorthDomain = () => {
+		if (!netWorth || netWorth.length === 0) return [0, 0];
+		const netWorthValues = netWorth.map((d) => d.netWorth);
+		const min = Math.min(...netWorthValues);
+		const max = Math.max(...netWorthValues);
+		return [Math.floor(min), Math.ceil(max)];
+	};
+
 	return (
 		<>
 			<DashboardBox gridArea="a">
@@ -138,7 +155,7 @@ const Row1 = (props: Props) => {
 							tickLine={false}
 							axisLine={{ strokeWidth: '0' }}
 							style={{ fontSize: '10px' }}
-							domain={[8000, 23000]}
+							domain={getIncomeSpendingDomain()}
 							stroke={palette.grey[200]}
 						/>
 						<Tooltip />
@@ -199,7 +216,7 @@ const Row1 = (props: Props) => {
 							tickLine={false}
 							axisLine={{ strokeWidth: '0' }}
 							style={{ fontSize: '10px' }}
-							domain={[1500, 10000]}
+							domain={getIncomeSpendingDomain()}
 							stroke={palette.grey[200]}
 						/>
 						<Tooltip />

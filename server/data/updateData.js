@@ -1,24 +1,30 @@
 import fs from 'fs';
 import data from './data.json' assert { type: 'json' };
 
-const computeMonthlyDataFromDaily = (dailyData) => {
+const computeMonthlyDataFromTransactions = (incomes, spendings) => {
 	const monthlyData = {};
 
-	dailyData.forEach((item) => {
+	incomes.forEach((item) => {
 		const date = new Date(item.date);
-		const month = date
-			.toLocaleString('default', { month: 'long' })
-			.toLowerCase();
-		const income = parseFloat(item.income.replace('$', '').replace(',', ''));
-		const spending = parseFloat(
-			item.spending.replace('$', '').replace(',', '')
-		);
+		const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
+		const income = parseFloat(item.amount.replace('$', '').replace(',', ''));
 
 		if (!monthlyData[month]) {
 			monthlyData[month] = { income: 0, spending: 0 };
 		}
 
 		monthlyData[month].income += income;
+	});
+
+	spendings.forEach((item) => {
+		const date = new Date(item.date);
+		const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
+		const spending = parseFloat(item.amount.replace('$', '').replace(',', ''));
+
+		if (!monthlyData[month]) {
+			monthlyData[month] = { income: 0, spending: 0 };
+		}
+
 		monthlyData[month].spending += spending;
 	});
 
@@ -35,13 +41,9 @@ const computeMonthlyDataFromDaily = (dailyData) => {
 const computeByCategory = (incomes, spendings) => {
 	const incomeByCategory = {};
 	const spendingByCategory = {};
-    console.log('Incomes:', incomes);
-    console.log('Spendings:', spendings);
 
 	incomes.forEach((income) => {
-		const amount = parseFloat(
-			income.amount.replace('$', '').replace(',', '')
-		);
+		const amount = parseFloat(income.amount.replace('$', '').replace(',', ''));
 		const category = income.category.toLowerCase();
 
 		if (!incomeByCategory[category]) {
@@ -51,9 +53,7 @@ const computeByCategory = (incomes, spendings) => {
 	});
 
 	spendings.forEach((spending) => {
-		const amount = parseFloat(
-			spending.amount.replace('$', '').replace(',', '')
-		);
+		const amount = parseFloat(spending.amount.replace('$', '').replace(',', ''));
 		const category = spending.category.toLowerCase();
 
 		if (!spendingByCategory[category]) {
@@ -85,10 +85,11 @@ const computeByCategory = (incomes, spendings) => {
 };
 
 const updateData = () => {
-	const monthlyData = computeMonthlyDataFromDaily(data.kpis[0].dailyData);
+	const monthlyData = computeMonthlyDataFromTransactions(data.incomes, data.spendings);
 
 	const { incomeByCategory, spendingByCategory } = computeByCategory(
-		data.incomes, data.spendings
+		data.incomes,
+		data.spendings
 	);
 
 	data.kpis[0].monthlyData = monthlyData;
