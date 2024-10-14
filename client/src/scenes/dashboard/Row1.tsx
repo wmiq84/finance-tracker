@@ -28,7 +28,7 @@ type Props = {};
 
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
-	const { data } = useGetKpisQuery();
+	const { data, refetch: refetchKpis } = useGetKpisQuery();
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 	// console.log('incomeData: ', incomeData);
 	const incomeColumns = [
@@ -71,30 +71,21 @@ const Row1 = (props: Props) => {
 		},
 	];
 
-	const incomeSpending = useMemo(() => {
-		return (
-			data &&
-			data[0].monthlyData.map(({ month, income, spending }) => {
-				return {
-					name: month.substring(0, 3),
-					income: income,
-					spending: spending,
-				};
-			})
-		);
-	}, [data]);
+	const incomeSpending = data
+		? data[0].monthlyData.map(({ month, income, spending }) => ({
+				name: month.substring(0, 3),
+				income,
+				spending,
+		  }))
+		: [];
 
-	const netWorth = useMemo(() => {
-		return (
-			data &&
-			data[0].monthlyData.map(({ month, income, spending }) => {
-				return {
-					name: month.substring(0, 3),
-					netWorth: income - spending,
-				};
-			})
-		);
-	}, [data]);
+	// Generate the data for net worth
+	const netWorth = data
+		? data[0].monthlyData.map(({ month, income, spending }) => ({
+				name: month.substring(0, 3),
+				netWorth: income - spending,
+		  }))
+		: [];
 
 	// get min and max of income, spending, and networth for graph domains
 	const getIncomeSpendingDomain = () => {
@@ -127,6 +118,9 @@ const Row1 = (props: Props) => {
 			if (response.ok) {
 				console.log('Deleted');
 				refetchIncomes();
+				console.log('KPI', data)
+				console.log('Income data', incomeData)
+
 			}
 		} catch (error) {
 			console.error('Failed to delete income:', error);
@@ -250,7 +244,7 @@ const Row1 = (props: Props) => {
 							tickLine={false}
 							axisLine={{ strokeWidth: '0' }}
 							style={{ fontSize: '10px' }}
-							domain={getIncomeSpendingDomain()}
+							domain={getNetWorthDomain()}
 							stroke={palette.grey[200]}
 						/>
 						<Tooltip />

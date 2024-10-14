@@ -1,5 +1,7 @@
 import fs from 'fs';
-import data from './data.json' assert { type: 'json' };
+const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+
+console.log('Imported incomes:', data.incomes); // Verify imported data
 
 const computeMonthlyDataFromTransactions = (incomes, spendings) => {
 	const monthlyData = {};
