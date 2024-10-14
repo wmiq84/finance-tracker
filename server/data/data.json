@@ -2,67 +2,67 @@
   "kpis": [
     {
       "totalIncome": "$20827.64",
-      "totalSpending": "$1441.49",
+      "totalSpending": "$13174.49",
       "monthlyData": [
         {
           "month": "january",
           "income": "$1200.75",
-          "spending": "$154.37"
+          "spending": "$1054.37"
         },
         {
           "month": "february",
           "income": "$160.45",
-          "spending": "$316.87"
+          "spending": "$3036.87"
         },
         {
           "month": "march",
           "income": "$2500.00",
-          "spending": "$80.52"
+          "spending": "$760.52"
         },
         {
           "month": "april",
           "income": "$450.00",
-          "spending": "$34.89"
+          "spending": "$384.89"
         },
         {
           "month": "may",
           "income": "$3400.00",
-          "spending": "$78.34"
+          "spending": "$781.34"
         },
         {
           "month": "june",
           "income": "$125.67",
-          "spending": "$67.25"
+          "spending": "$637.25"
         },
         {
           "month": "july",
           "income": "$480.23",
-          "spending": "$92.46"
+          "spending": "$922.46"
         },
         {
           "month": "august",
           "income": "$5000.00",
-          "spending": "$140.55"
+          "spending": "$1340.55"
         },
         {
           "month": "september",
           "income": "$140.54",
-          "spending": "$62.91"
+          "spending": "$622.91"
         },
         {
           "month": "october",
           "income": "$3800.00",
-          "spending": "$185.34"
+          "spending": "$1685.34"
         },
         {
           "month": "november",
           "income": "$620.00",
-          "spending": "$99.43"
+          "spending": "$919.43"
         },
         {
           "month": "december",
           "income": "$2950.00",
-          "spending": "$128.56"
+          "spending": "$1028.56"
         }
       ],
       "incomeByCategory": {
@@ -71,73 +71,85 @@
         "freelance": "$266.21"
       },
       "spendingByCategory": {
-        "food": "$211.15",
-        "travel": "$502.21",
-        "entertainment": "$152.30",
-        "groceries": "$264.48",
-        "health": "$78.34",
-        "utilities": "$92.46",
-        "shopping": "$140.55"
+        "food": "$1581.15",
+        "travel": "$4722.21",
+        "entertainment": "$1262.30",
+        "groceries": "$2564.48",
+        "health": "$781.34",
+        "utilities": "$922.46",
+        "shopping": "$1340.55"
       }
     }
   ],
   "incomes": [
     {
+      "id": "income-1",
       "amount": "$1200.75",
       "date": "2024-01-05",
       "category": "Salary"
     },
     {
+      "id": "income-2",
       "amount": "$160.45",
       "date": "2024-02-11",
       "category": "Side Gig"
     },
     {
+      "id": "income-3",
       "amount": "$2500.00",
       "date": "2024-03-31",
       "category": "Salary"
     },
     {
+      "id": "income-4",
       "amount": "$450.00",
       "date": "2024-04-15",
       "category": "Side Gig"
     },
     {
+      "id": "income-5",
       "amount": "$3400.00",
       "date": "2024-05-31",
       "category": "Salary"
     },
     {
+      "id": "income-6",
       "amount": "$125.67",
       "date": "2024-06-10",
       "category": "Freelance"
     },
     {
+      "id": "income-7",
       "amount": "$480.23",
       "date": "2024-07-21",
       "category": "Side Gig"
     },
     {
+      "id": "income-8",
       "amount": "$5000.00",
       "date": "2024-08-30",
       "category": "Salary"
     },
     {
+      "id": "income-9",
       "amount": "$140.54",
       "date": "2024-09-15",
       "category": "Freelance"
     },
     {
+      "id": "income-10",
       "amount": "$3800.00",
       "date": "2024-10-31",
       "category": "Salary"
     },
     {
+      "id": "income-11",
       "amount": "$620.00",
       "date": "2024-11-25",
       "category": "Side Gig"
     },
     {
+      "id": "income-12",
       "amount": "$2950.00",
       "date": "2024-12-20",
       "category": "Salary"
@@ -145,78 +157,93 @@
   ],
   "spendings": [
     {
-      "amount": "$154.37",
+      "id": "spending-1",
+      "amount": "$1054.37",
       "date": "2024-01-15",
       "category": "Food"
     },
     {
-      "amount": "$207.45",
+      "id": "spending-2",
+      "amount": "$2007.45",
       "date": "2024-02-08",
       "category": "Travel"
     },
     {
-      "amount": "$109.42",
+      "id": "spending-3",
+      "amount": "$1029.42",
       "date": "2024-02-28",
       "category": "Travel"
     },
     {
-      "amount": "$23.74",
+      "id": "spending-4",
+      "amount": "$233.74",
       "date": "2024-03-02",
       "category": "Entertainment"
     },
     {
-      "amount": "$56.78",
+      "id": "spending-5",
+      "amount": "$526.78",
       "date": "2024-03-20",
       "category": "Food"
     },
     {
-      "amount": "$34.89",
+      "id": "spending-6",
+      "amount": "$384.89",
       "date": "2024-04-10",
       "category": "Groceries"
     },
     {
-      "amount": "$78.34",
+      "id": "spending-7",
+      "amount": "$781.34",
       "date": "2024-05-07",
       "category": "Health"
     },
     {
-      "amount": "$67.25",
+      "id": "spending-8",
+      "amount": "$637.25",
       "date": "2024-06-12",
       "category": "Groceries"
     },
     {
-      "amount": "$92.46",
+      "id": "spending-9",
+      "amount": "$922.46",
       "date": "2024-07-23",
       "category": "Utilities"
     },
     {
-      "amount": "$140.55",
+      "id": "spending-10",
+      "amount": "$1340.55",
       "date": "2024-08-11",
       "category": "Shopping"
     },
     {
-      "amount": "$62.91",
+      "id": "spending-11",
+      "amount": "$622.91",
       "date": "2024-09-19",
       "category": "Groceries"
     },
     {
-      "amount": "$185.34",
+      "id": "spending-12",
+      "amount": "$1685.34",
       "date": "2024-10-30",
       "category": "Travel"
     },
     {
-      "amount": "$99.43",
+      "id": "spending-13",
+      "amount": "$919.43",
       "date": "2024-11-14",
       "category": "Groceries"
     },
     {
-      "amount": "$128.56",
+      "id": "spending-14",
+      "amount": "$1028.56",
       "date": "2024-12-25",
       "category": "Entertainment"
     }
   ],
   "goals": [
     {
+      "id": "goal-1",
       "title": "Kitchen Remodel",
       "amountSaved": "$1800.00",
       "targetAmount": "$2900.00",
@@ -224,6 +251,7 @@
       "completed": false
     },
     {
+      "id": "goal-2",
       "title": "New Car",
       "amountSaved": "$7800.00",
       "targetAmount": "$10000.00",
@@ -233,6 +261,7 @@
   ],
   "budgets": [
     {
+      "id": "budget-1",
       "title": "Video Games",
       "amountSpent": "$40.00",
       "targetAmount": "$50.00",
@@ -240,6 +269,7 @@
       "completed": false
     },
     {
+      "id": "budget-2",
       "title": "Eating Out",
       "amountSpent": "$300.00",
       "targetAmount": "$450.00",

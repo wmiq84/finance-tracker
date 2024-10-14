@@ -12,6 +12,7 @@ import {
 	Hidden,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useMemo } from 'react';
 import React from 'react';
 import {
@@ -28,7 +29,7 @@ type Props = {};
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
-	const { data: incomeData } = useGetIncomesQuery();
+	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 	// console.log('incomeData: ', incomeData);
 	const incomeColumns = [
 		{
@@ -54,6 +55,19 @@ const Row1 = (props: Props) => {
 			field: 'category',
 			headerName: 'Category',
 			flex: 1,
+		},
+		{
+			field: 'delete',
+			headerName: '',
+			flex: 0.4,
+			renderCell: (params: GridCellParams) => {
+				return (
+					<DeleteIcon
+						style={{ cursor: 'pointer' }}
+						onClick={() => handleDelete(params.id)}
+					/>
+				);
+			},
 		},
 	];
 
@@ -82,6 +96,7 @@ const Row1 = (props: Props) => {
 		);
 	}, [data]);
 
+	// get min and max of income, spending, and networth for graph domains
 	const getIncomeSpendingDomain = () => {
 		if (!incomeSpending || incomeSpending.length === 0) return [0, 0];
 		const incomes = incomeSpending.map((d) => d.income);
@@ -97,6 +112,25 @@ const Row1 = (props: Props) => {
 		const min = Math.min(...netWorthValues);
 		const max = Math.max(...netWorthValues);
 		return [Math.floor(min), Math.ceil(max)];
+	};
+
+	const handleDelete = async (id) => {
+		try {
+			console.log(id);
+			const response = await fetch(
+				`http://localhost:1337/income/incomes/${id}`,
+				{
+					method: 'DELETE',
+				}
+			);
+
+			if (response.ok) {
+				console.log('Deleted');
+				refetchIncomes();
+			}
+		} catch (error) {
+			console.error('Failed to delete income:', error);
+		}
 	};
 
 	return (
