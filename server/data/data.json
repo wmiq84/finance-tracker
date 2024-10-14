@@ -113,7 +113,7 @@
         "category": "Salary"
       }
     ],  
-    "transactions": [   
+    "spendings": [   
       {
         "amount": "$154.37",
         "date": "2024-07-01",
@@ -121,6 +121,11 @@
       },
       {
         "amount": "$207.45",
+        "date": "2024-07-02",
+        "category": "Travel"
+      },
+      {
+        "amount": "$109.42",
         "date": "2024-07-02",
         "category": "Travel"
       },

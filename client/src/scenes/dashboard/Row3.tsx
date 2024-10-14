@@ -5,7 +5,7 @@ import { Cell, Pie, PieChart } from 'recharts';
 import {
 	useGetKpisQuery,
 	useGetIncomesQuery,
-	useGetTransactionsQuery,
+	useGetSpendingsQuery,
 	useGetBudgetsQuery,
 } from '@/state/api';
 import BoxHeader from '@/components/BoxHeader';
@@ -22,7 +22,7 @@ const Row3 = () => {
 	const pieColors = [palette.primary[800], palette.primary[300]];
 	const { data } = useGetKpisQuery();
 	const { data: incomeData } = useGetIncomesQuery();
-	const { data: transactionData } = useGetTransactionsQuery();
+	const { data: spendingData } = useGetSpendingsQuery();
 	const { data: budgetData } = useGetBudgetsQuery();
 	console.log('Budget data: ', budgetData);
 	const budgetCardData = useMemo(() => {
@@ -142,7 +142,7 @@ const Row3 = () => {
 				))}
 			</DashboardBox>
 			<DashboardBox gridArea="h">
-				<BoxHeader title="Income and Transactions by Category" />
+				<BoxHeader title="Income and Spendings by Category" />
 				<FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
 					{pieChartDataIncome?.map((data, i) => (
 						<Box key={`${data[0].name}-${i}`}>

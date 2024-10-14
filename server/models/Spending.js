@@ -4,7 +4,7 @@ import { loadType } from 'mongoose-currency';
 const Schema = mongoose.Schema;
 loadType(mongoose);
 
-const TransactionSchema = new Schema(
+const SpendingSchema = new Schema(
 	{
 		amount: {
 			type: mongoose.Types.Currency,
@@ -21,6 +21,6 @@ const TransactionSchema = new Schema(
 	{ timestamps: true, toJSON: { getters: true } }
 );
 
-const Transaction = mongoose.model('Transactions', TransactionSchema);
+const Spending = mongoose.model('Spendings', SpendingSchema);
 
-export default Transaction;
+export default Spending;

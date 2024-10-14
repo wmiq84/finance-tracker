@@ -3,7 +3,7 @@ import DashboardBox from '@/components/DashboardBox';
 import {
 	useGetKpisQuery,
 	useGetIncomesQuery,
-	useGetTransactionsQuery,
+	useGetSpendingsQuery,
 } from '@/state/api';
 import {
 	Experimental_CssVarsProvider,

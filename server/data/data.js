@@ -659,7 +659,7 @@ export const incomes = [
 	},
 ];
 
-export const transactions = [
+export const spendings = [
 	{
 		amount: '$154.37',
 		date: '2024-07-01',

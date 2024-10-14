@@ -1,0 +1,113 @@
+{
+  "kpis": [
+    {
+      "totalIncome": "$3784.98",
+      "totalSpending": "$1322.45",
+      "monthlyData": [
+        {
+          "month": "january",
+          "income": "$3784.98",
+          "spending": "$1322.45"
+        }
+      ],
+      "dailyData": [
+        {
+          "date": "2022-01-02",
+          "income": "$1498.94",
+          "spending": "$430.64"
+        },
+        {
+          "date": "2022-01-03",
+          "income": "$935.08",
+          "spending": "$329.32"
+        },
+        {
+          "date": "2022-01-04",
+          "income": "$1350.96",
+          "spending": "$562.49"
+        }
+      ],
+      "incomeByCategory": {
+        "food": "$154.37",
+        "travel": "$316.87",
+        "entertainment": "$23.74"
+      },
+      "spendingByCategory": {
+        "food": "$154.37",
+        "travel": "$316.87",
+        "entertainment": "$23.74"
+      }
+    }
+  ],
+  "incomes": [
+    {
+      "amount": "$43.41",
+      "date": "2023-01-01",
+      "category": "Side Gig"
+    },
+    {
+      "amount": "$60.13",
+      "date": "2023-02-01",
+      "category": "Gifts"
+    },
+    {
+      "amount": "$195.05",
+      "date": "2023-03-01",
+      "category": "Salary"
+    }
+  ],
+  "transactions": [
+    {
+      "amount": "$154.37",
+      "date": "2024-07-01",
+      "category": "Food"
+    },
+    {
+      "amount": "$207.45",
+      "date": "2024-07-02",
+      "category": "Travel"
+    },
+    {
+      "amount": "$109.42",
+      "date": "2024-07-02",
+      "category": "Travel"
+    },
+    {
+      "amount": "$23.74",
+      "date": "2024-07-03",
+      "category": "Entertainment"
+    }
+  ],
+  "goals": [
+    {
+      "title": "Kitchen Remodel",
+      "amountSaved": "$1800.00",
+      "targetAmount": "$2900.00",
+      "dueDate": "2025-02-10",
+      "completed": false
+    },
+    {
+      "title": "New Car",
+      "amountSaved": "$7800.00",
+      "targetAmount": "$10000.00",
+      "dueDate": "2025-07-18",
+      "completed": false
+    }
+  ],
+  "budgets": [
+    {
+      "title": "Video Games",
+      "amountSpent": "$40.00",
+      "targetAmount": "$50.00",
+      "dueDate": "2024-12-30",
+      "completed": false
+    },
+    {
+      "title": "Eating Out",
+      "amountSpent": "$300.00",
+      "targetAmount": "$450.00",
+      "dueDate": "2024-12-30",
+      "completed": false
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import FlexBetween from '@/components/FlexBetween';
 import {
 	useGetKpisQuery,
 	useGetIncomesQuery,
-	useGetTransactionsQuery,
+	useGetSpendingsQuery,
 	useGetGoalsQuery,
 } from '@/state/api';
 import {
@@ -25,7 +25,7 @@ type Props = {};
 const Row2 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data } = useGetKpisQuery();
-	const { data: transactionData } = useGetTransactionsQuery();
+	const { data: spendingData } = useGetSpendingsQuery();
 	const { data: goalData } = useGetGoalsQuery();
 
 	const goalCardData = useMemo(() => {
@@ -51,7 +51,7 @@ const Row2 = (props: Props) => {
 		return [];
 	}, [goalData]);
 
-	const transactionColumns = [
+	const spendingColumns = [
 		{
 			field: 'date',
 			headerName: 'Date',
@@ -78,7 +78,7 @@ const Row2 = (props: Props) => {
 		},
 	];
 
-	const transactionSpending = useMemo(() => {
+	const spendingSpending = useMemo(() => {
 		return (
 			data &&
 			data[0].monthlyData.map(({ month, income, spending }) => {
@@ -141,8 +141,8 @@ const Row2 = (props: Props) => {
 			</DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader
-					title="Recent Transactions"
-					sideText={`${transactionData?.length} sources`}
+					title="Recent Spending"
+					sideText={`${spendingData?.length} sources`}
 				></BoxHeader>
 				<Box
 					mt="0.5rem"
@@ -168,8 +168,8 @@ const Row2 = (props: Props) => {
 						columnHeaderHeight={25}
 						rowHeight={35}
 						hideFooter={true}
-						rows={transactionData || []}
-						columns={transactionColumns}
+						rows={spendingData || []}
+						columns={spendingColumns}
 					/>
 				</Box>
 			</DashboardBox>

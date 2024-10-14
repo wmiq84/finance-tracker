@@ -44,12 +44,12 @@ export interface GetIncomesResponse {
 	__v: number;
 	amount: number;
 	expense: number;
-	transactions: Array<string>;
+	spendings: Array<string>;
 	createdAt: string;
 	updatedAt: string;
 }
 
-export interface GetTransactionsResponse {
+export interface GetSpendingsResponse {
 	id: string;
 	__v: number;
 	amount: number;

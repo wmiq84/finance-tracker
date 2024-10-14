@@ -8,15 +8,15 @@ import morgan from 'morgan';
 import fs from 'fs';
 import kpiRoutes from './routes/kpi.js';
 import incomeRoutes from './routes/income.js';
-import transactionRoutes from './routes/transaction.js';
+import spendingRoutes from './routes/spending.js';
 import goalRoutes from './routes/goal.js';
 import budgetRoutes from './routes/budget.js';
 import KPI from './models/KPI.js';
 import Income from './models/Income.js';
-import Transaction from './models/Transaction.js';
+import Spending from './models/Spending.js';
 import Goal from './models/Goal.js';
 import Budget from './models/Budget.js';
-// import { kpis, incomes, transactions, goals, budgets } from './data/data.js';
+// import { kpis, incomes, spendings, goals, budgets } from './data/data.js';
 
 // configurations
 dotenv.config();
@@ -32,7 +32,7 @@ app.use(cors());
 // routes
 app.use('/kpi', kpiRoutes);
 app.use('/income', incomeRoutes);
-app.use('/transaction', transactionRoutes);
+app.use('/spending', spendingRoutes);
 app.use('/goal', goalRoutes);
 app.use('/budget', budgetRoutes);
 
@@ -51,7 +51,7 @@ mongoose
 		// comment out after initial
 		await mongoose.connection.db.dropDatabase();
 		KPI.insertMany(data.kpis);
-		Transaction.insertMany(data.transactions);
+		Spending.insertMany(data.spendings);
 		Income.insertMany(data.incomes);
 		Goal.insertMany(data.goals);
 		Budget.insertMany(data.budgets);
