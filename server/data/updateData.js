@@ -1,7 +1,9 @@
 import fs from 'fs';
 const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+const rawData = fs.readFileSync('./data.json', 'utf8');
+console.log('Raw data:', rawData); 
+console.log('Imported incomes:', data.incomes);
 
-console.log('Imported incomes:', data.incomes); // Verify imported data
 
 const computeMonthlyDataFromTransactions = (incomes, spendings) => {
 	const monthlyData = {};

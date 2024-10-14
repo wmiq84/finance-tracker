@@ -118,9 +118,8 @@ const Row1 = (props: Props) => {
 			if (response.ok) {
 				console.log('Deleted');
 				refetchIncomes();
-				console.log('KPI', data)
-				console.log('Income data', incomeData)
-
+				console.log('KPI', data);
+				console.log('Income data', incomeData);
 			}
 		} catch (error) {
 			console.error('Failed to delete income:', error);

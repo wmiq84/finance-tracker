@@ -1,5 +1,6 @@
 import express from 'express';
 import Income from '../models/Income.js';
+import { exec } from 'child_process';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/incomes', async (req, res) => {
 router.delete('/incomes/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
-		const result = await Income.findByIdAndDelete(id); 
+		const result = await Income.findByIdAndDelete(id);
 
 		if (!result) {
 			return res.status(404).json({ message: 'Income not found' });
@@ -26,6 +27,7 @@ router.delete('/incomes/:id', async (req, res) => {
 		console.error('Error deleting income:', error);
 		res.status(500).json({ message: 'Internal Server Error' });
 	}
+	exec('node ../data/updateData.js');
 });
 
 export default router;

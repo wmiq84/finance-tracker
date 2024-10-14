@@ -1,12 +1,12 @@
 {
   "kpis": [
     {
-      "totalIncome": "$20827.64",
+      "totalIncome": "$21027.64",
       "totalSpending": "$13174.49",
       "monthlyData": [
         {
           "month": "january",
-          "income": "$1200.75",
+          "income": "$1400.75",
           "spending": "$1054.37"
         },
         {
@@ -66,7 +66,7 @@
         }
       ],
       "incomeByCategory": {
-        "salary": "$18850.75",
+        "salary": "$19050.75",
         "side gig": "$1710.68",
         "freelance": "$266.21"
       },
@@ -84,7 +84,7 @@
   "incomes": [
     {
       "id": "income-1",
-      "amount": "$1200.75",
+      "amount": "$1400.75",
       "date": "2024-01-05",
       "category": "Salary"
     },

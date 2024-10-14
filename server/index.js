@@ -48,12 +48,14 @@ mongoose
 	})
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-		// comment out after initial
-		await mongoose.connection.db.dropDatabase();
-		KPI.insertMany(data.kpis);
-		Spending.insertMany(data.spendings);
-		Income.insertMany(data.incomes);
-		Goal.insertMany(data.goals);
-		Budget.insertMany(data.budgets);
+		const kpiCount = await KPI.countDocuments();
+		if (kpiCount === 0) {
+			await KPI.insertMany(data.kpis);
+			await Spending.insertMany(data.spendings);
+			await Income.insertMany(data.incomes);
+			await Goal.insertMany(data.goals);
+			await Budget.insertMany(data.budgets);
+			console.log('Initial data seeded to the database');
+		}
 	})
 	.catch((error) => console.log(`${error} did not connect`));
