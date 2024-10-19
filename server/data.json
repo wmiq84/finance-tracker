@@ -1,49 +1,9 @@
 {
   "kpis": [
     {
-      "totalIncome": "$21427.64",
+      "totalIncome": "$7510.54",
       "totalSpending": "$13174.49",
       "monthlyData": [
-        {
-          "month": "january",
-          "income": "$1800.75",
-          "spending": "$1054.37"
-        },
-        {
-          "month": "february",
-          "income": "$160.45",
-          "spending": "$3036.87"
-        },
-        {
-          "month": "march",
-          "income": "$2500.00",
-          "spending": "$760.52"
-        },
-        {
-          "month": "april",
-          "income": "$450.00",
-          "spending": "$384.89"
-        },
-        {
-          "month": "may",
-          "income": "$3400.00",
-          "spending": "$781.34"
-        },
-        {
-          "month": "june",
-          "income": "$125.67",
-          "spending": "$637.25"
-        },
-        {
-          "month": "july",
-          "income": "$480.23",
-          "spending": "$922.46"
-        },
-        {
-          "month": "august",
-          "income": "$5000.00",
-          "spending": "$1340.55"
-        },
         {
           "month": "september",
           "income": "$140.54",
@@ -63,12 +23,52 @@
           "month": "december",
           "income": "$2950.00",
           "spending": "$1028.56"
+        },
+        {
+          "month": "january",
+          "income": "$0.00",
+          "spending": "$1054.37"
+        },
+        {
+          "month": "february",
+          "income": "$0.00",
+          "spending": "$3036.87"
+        },
+        {
+          "month": "march",
+          "income": "$0.00",
+          "spending": "$760.52"
+        },
+        {
+          "month": "april",
+          "income": "$0.00",
+          "spending": "$384.89"
+        },
+        {
+          "month": "may",
+          "income": "$0.00",
+          "spending": "$781.34"
+        },
+        {
+          "month": "june",
+          "income": "$0.00",
+          "spending": "$637.25"
+        },
+        {
+          "month": "july",
+          "income": "$0.00",
+          "spending": "$922.46"
+        },
+        {
+          "month": "august",
+          "income": "$0.00",
+          "spending": "$1340.55"
         }
       ],
       "incomeByCategory": {
-        "salary": "$19450.75",
-        "side gig": "$1710.68",
-        "freelance": "$266.21"
+        "freelance": "$140.54",
+        "salary": "$6750.00",
+        "side gig": "$620.00"
       },
       "spendingByCategory": {
         "food": "$1581.15",

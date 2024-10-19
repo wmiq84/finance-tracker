@@ -1,3 +1,5 @@
+// index.js
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -16,9 +18,7 @@ import Income from './models/Income.js';
 import Spending from './models/Spending.js';
 import Goal from './models/Goal.js';
 import Budget from './models/Budget.js';
-// import { kpis, incomes, spendings, goals, budgets } from './data/data.js';
 
-// configurations
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -36,9 +36,6 @@ app.use('/spending', spendingRoutes);
 app.use('/goal', goalRoutes);
 app.use('/budget', budgetRoutes);
 
-// load data from json
-const data = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'));
-
 // mongoose setup
 const PORT = process.env.PORT || 9000;
 mongoose
@@ -48,8 +45,26 @@ mongoose
 	})
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+		// reseeds db with default values if true
+		if (process.env.SEED_DB === 'true') {
+			await seedDatabase();
+		}
+	})
+	.catch((error) => console.log(`${error} did not connect`));
+
+
+const seedDatabase = async () => {
+	const data = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'));
+	try {
 		const kpiCount = await KPI.countDocuments();
 		if (kpiCount === 0) {
+			// populates db
+			await KPI.deleteMany({});
+			await Spending.deleteMany({});
+			await Income.deleteMany({});
+			await Goal.deleteMany({});
+			await Budget.deleteMany({});
+
 			await KPI.insertMany(data.kpis);
 			await Spending.insertMany(data.spendings);
 			await Income.insertMany(data.incomes);
@@ -57,5 +72,7 @@ mongoose
 			await Budget.insertMany(data.budgets);
 			console.log('Initial data seeded to the database');
 		}
-	})
-	.catch((error) => console.log(`${error} did not connect`));
+	} catch (error) {
+		console.error('Error seeding database:', error);
+	}
+};

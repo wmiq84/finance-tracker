@@ -1,121 +1,138 @@
 import fs from 'fs';
-const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
-const rawData = fs.readFileSync('./data.json', 'utf8');
-console.log('Raw data:', rawData); 
-console.log('Imported incomes:', data.incomes);
+import mongoose from 'mongoose';
+import Income from '../models/Income.js';
+import Spending from '../models/Spending.js';
+import KPI from '../models/KPI.js';
+import dotenv from 'dotenv';
 
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const fetchDataFromDb = async () => {
+  const incomes = await Income.find();
+  const spendings = await Spending.find();
+  return { incomes, spendings };
+};
 
 const computeMonthlyDataFromTransactions = (incomes, spendings) => {
-	const monthlyData = {};
+  const monthlyData = {};
 
-	incomes.forEach((item) => {
-		const date = new Date(item.date);
-		const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
-		const income = parseFloat(item.amount.replace('$', '').replace(',', ''));
+  incomes.forEach((item) => {
+    const date = new Date(item.date);
+    const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
+    const income = item.amount;
 
-		if (!monthlyData[month]) {
-			monthlyData[month] = { income: 0, spending: 0 };
-		}
+    if (!monthlyData[month]) {
+      monthlyData[month] = { income: 0, spending: 0 };
+    }
 
-		monthlyData[month].income += income;
-	});
+    monthlyData[month].income += income;
+  });
 
-	spendings.forEach((item) => {
-		const date = new Date(item.date);
-		const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
-		const spending = parseFloat(item.amount.replace('$', '').replace(',', ''));
+  spendings.forEach((item) => {
+    const date = new Date(item.date);
+    const month = date.toLocaleString('default', { month: 'long' }).toLowerCase();
+    const spending = item.amount;
 
-		if (!monthlyData[month]) {
-			monthlyData[month] = { income: 0, spending: 0 };
-		}
+    if (!monthlyData[month]) {
+      monthlyData[month] = { income: 0, spending: 0 };
+    }
 
-		monthlyData[month].spending += spending;
-	});
+    monthlyData[month].spending += spending;
+  });
 
-	const monthlyArray = Object.keys(monthlyData).map((month) => ({
-		month,
-		income: `$${monthlyData[month].income.toFixed(2)}`,
-		spending: `$${monthlyData[month].spending.toFixed(2)}`,
-	}));
+  const monthlyArray = Object.keys(monthlyData).map((month) => ({
+    month,
+    income: `$${monthlyData[month].income.toFixed(2)}`,
+    spending: `$${monthlyData[month].spending.toFixed(2)}`,
+  }));
 
-	console.log('Monthly Data:', monthlyArray);
-	return monthlyArray;
+  console.log('Monthly Data:', monthlyArray);
+  return monthlyArray;
 };
 
 const computeByCategory = (incomes, spendings) => {
-	const incomeByCategory = {};
-	const spendingByCategory = {};
+  const incomeByCategory = {};
+  const spendingByCategory = {};
 
-	incomes.forEach((income) => {
-		const amount = parseFloat(income.amount.replace('$', '').replace(',', ''));
-		const category = income.category.toLowerCase();
+  incomes.forEach((income) => {
+    const amount = income.amount;
+    const category = income.category.toLowerCase();
 
-		if (!incomeByCategory[category]) {
-			incomeByCategory[category] = 0;
-		}
-		incomeByCategory[category] += amount;
-	});
+    if (!incomeByCategory[category]) {
+      incomeByCategory[category] = 0;
+    }
+    incomeByCategory[category] += amount;
+  });
 
-	spendings.forEach((spending) => {
-		const amount = parseFloat(spending.amount.replace('$', '').replace(',', ''));
-		const category = spending.category.toLowerCase();
+  spendings.forEach((spending) => {
+    const amount = spending.amount;
+    const category = spending.category.toLowerCase();
 
-		if (!spendingByCategory[category]) {
-			spendingByCategory[category] = 0;
-		}
+    if (!spendingByCategory[category]) {
+      spendingByCategory[category] = 0;
+    }
 
-		spendingByCategory[category] += amount;
-	});
+    spendingByCategory[category] += amount;
+  });
 
-	const formattedIncome = Object.keys(incomeByCategory).reduce((acc, key) => {
-		acc[key] = `$${incomeByCategory[key].toFixed(2)}`;
-		return acc;
-	}, {});
+  const formattedIncome = Object.keys(incomeByCategory).reduce((acc, key) => {
+    acc[key] = `$${incomeByCategory[key].toFixed(2)}`;
+    return acc;
+  }, {});
 
-	const formattedSpending = Object.keys(spendingByCategory).reduce(
-		(acc, key) => {
-			acc[key] = `$${spendingByCategory[key].toFixed(2)}`;
-			return acc;
-		},
-		{}
-	);
+  const formattedSpending = Object.keys(spendingByCategory).reduce(
+    (acc, key) => {
+      acc[key] = `$${spendingByCategory[key].toFixed(2)}`;
+      return acc;
+    },
+    {}
+  );
 
-	console.log('Income by Category:', formattedIncome);
-	console.log('Spending by Category:', formattedSpending);
-	return {
-		incomeByCategory: formattedIncome,
-		spendingByCategory: formattedSpending,
-	};
+  console.log('Income by Category:', formattedIncome);
+  console.log('Spending by Category:', formattedSpending);
+  return {
+    incomeByCategory: formattedIncome,
+    spendingByCategory: formattedSpending,
+  };
 };
 
-const updateData = () => {
-	const monthlyData = computeMonthlyDataFromTransactions(data.incomes, data.spendings);
+const updateData = async () => {
+  const { incomes, spendings } = await fetchDataFromDb();
 
-	const { incomeByCategory, spendingByCategory } = computeByCategory(
-		data.incomes,
-		data.spendings
-	);
+  const monthlyData = computeMonthlyDataFromTransactions(incomes, spendings);
 
-	data.kpis[0].monthlyData = monthlyData;
-	data.kpis[0].incomeByCategory = incomeByCategory;
-	data.kpis[0].spendingByCategory = spendingByCategory;
+  const { incomeByCategory, spendingByCategory } = computeByCategory(incomes, spendings);
 
-	const totalIncome = monthlyData.reduce(
-		(sum, month) => sum + parseFloat(month.income.replace('$', '')),
-		0
-	);
-	const totalSpending = monthlyData.reduce(
-		(sum, month) => sum + parseFloat(month.spending.replace('$', '')),
-		0
-	);
+  const totalIncome = monthlyData.reduce(
+    (sum, month) => sum + parseFloat(month.income.replace('$', '')),
+    0
+  );
+  const totalSpending = monthlyData.reduce(
+    (sum, month) => sum + parseFloat(month.spending.replace('$', '')),
+    0
+  );
 
-	data.kpis[0].totalIncome = `$${totalIncome.toFixed(2)}`;
-	data.kpis[0].totalSpending = `$${totalSpending.toFixed(2)}`;
+  // Find the KPI document in MongoDB
+  const kpi = await KPI.findOne(); // Assuming there's only one KPI document
 
-	console.log('Total Income:', data.kpis[0].totalIncome);
-	console.log('Total Spending:', data.kpis[0].totalSpending);
+  if (kpi) {
+    kpi.monthlyData = monthlyData;
+    kpi.incomeByCategory = incomeByCategory;
+    kpi.spendingByCategory = spendingByCategory;
+    kpi.totalIncome = totalIncome;
+    kpi.totalSpending = totalSpending;
 
-	fs.writeFileSync('./data.json', JSON.stringify(data, null, 2));
+    // Save the updated KPI document to MongoDB
+    await kpi.save();
+    console.log('KPI data updated in MongoDB');
+  } else {
+    console.error('No KPI document found to update');
+  }
+
+  console.log('Data updated successfully');
 };
 
 updateData();

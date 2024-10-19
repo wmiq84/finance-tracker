@@ -112,8 +112,11 @@ const Row1 = (props: Props) => {
 				`http://localhost:1337/income/incomes/${id}`,
 				{
 					method: 'DELETE',
-				}
-			);
+				
+				headers: {
+					'Content-Type': 'application/json',
+				  },
+		});
 
 			if (response.ok) {
 				console.log('Deleted');
