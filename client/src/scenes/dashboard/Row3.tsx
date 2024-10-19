@@ -51,7 +51,7 @@ const Row3 = () => {
 
 	const pieChartDataIncome = useMemo(() => {
 		if (data) {
-			const totalIncome = data[0].totalIncome;
+			const totalIncome = data[0].totalIncome * 100;
 			return (
 				Object.entries(data[0].incomeByCategory)
 					// filter out invalid and null values
@@ -74,7 +74,9 @@ const Row3 = () => {
 
 	const pieChartDataSpending = useMemo(() => {
 		if (data) {
-			const totalSpending = data[0].totalSpending;
+			const totalSpending = data[0].totalSpending * 100;
+
+			// Check and log the structure of spendingByCategory
 			return (
 				Object.entries(data[0].spendingByCategory)
 					// filter out invalid and null values

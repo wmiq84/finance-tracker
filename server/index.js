@@ -54,7 +54,7 @@ mongoose
 
 
 const seedDatabase = async () => {
-	const data = JSON.parse(fs.readFileSync('./data/data.json', 'utf-8'));
+	const data = JSON.parse(fs.readFileSync('./data/seedData.json', 'utf-8'));
 	try {
 		const kpiCount = await KPI.countDocuments();
 		if (kpiCount === 0) {
