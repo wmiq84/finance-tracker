@@ -23,15 +23,12 @@ router.delete('/incomes/:id', async (req, res) => {
 			return res.status(404).json({ message: 'Income not found' });
 		}
 
+		res.status(200).json({ message: 'Income deleted successfully' });
+
 		// recalculate values based on new incomes and sync with mongoDB
 		exec('node ./data/updateData.js', (error, stdout, stderr) => {
 			if (error) {
 				console.error(`Error executing updateData.js: ${error.message}`);
-				return res.status(500).json({ message: 'Failed to update data' });
-			}
-			if (stderr) {
-				console.error(`stderr: ${stderr}`);
-				return res.status(500).json({ message: 'Data updated with some issues' });
 			}
 
 			console.log(`stdout: ${stdout}`);

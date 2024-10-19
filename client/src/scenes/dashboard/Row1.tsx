@@ -120,7 +120,8 @@ const Row1 = (props: Props) => {
 
 			if (response.ok) {
 				console.log('Deleted');
-				refetchIncomes();
+				await refetchIncomes();
+				await refetchKpis();
 				console.log('KPI', data);
 				console.log('Income data', incomeData);
 			}
