@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import React from 'react';
 import {
 	ResponsiveContainer,
@@ -123,10 +123,10 @@ const Row1 = (props: Props) => {
 
 			if (response.ok) {
 				console.log('Deleted');
-				await refetchIncomes();
-				await refetchKpis();
-				console.log('KPI', data);
-				console.log('Income data', incomeData);
+				const updatedIncomeData = await refetchIncomes();
+				console.log('Updated Income Data:', updatedIncomeData.data);
+				const updatedKpiData = await refetchKpis();
+				console.log('Updated KPI Data:', updatedKpiData.data);
 			}
 		} catch (error) {
 			console.error('Failed to delete income:', error);
