@@ -43,11 +43,24 @@ const computeMonthlyDataFromTransactions = (incomes, spendings) => {
     monthlyData[month].spending += spending;
   });
 
-  const monthlyArray = Object.keys(monthlyData).map((month) => ({
-    month,
-    income: `$${monthlyData[month].income.toFixed(2)}`,
-    spending: `$${monthlyData[month].spending.toFixed(2)}`,
-  }));
+  let runningNetWorth = 0;
+  const monthlyArray = Object.keys(monthlyData).map((month) => {
+	const income = parseFloat(monthlyData[month].income);
+	const spending = parseFloat(monthlyData[month].spending);
+  
+	// Calculate net as a number (income minus spending)
+	const net = income - spending;
+  
+	// Accumulate running net worth, which can be positive or negative
+	runningNetWorth += net;
+    return {
+      month,
+      income: `$${monthlyData[month].income.toFixed(2)}`,
+      spending: `$${monthlyData[month].spending.toFixed(2)}`,
+      net: `$${net.toFixed(2)}`,
+      runningNetWorth: runningNetWorth.toFixed(2),
+    };
+  });
 
   console.log('Monthly Data:', monthlyArray);
   return monthlyArray;

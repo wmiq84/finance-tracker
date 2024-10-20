@@ -34,6 +34,11 @@ const monthSchema = new Schema(
 			currency: 'USD',
 			get: (v) => v / 100,
 		},
+		runningNetWorth: {
+			type: mongoose.Types.Currency,
+			currency: 'USD',
+			get: (v) => v / 100,
+		},
 	},
 	{ toJSON: { getters: true } }
 );

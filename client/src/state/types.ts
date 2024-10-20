@@ -17,8 +17,7 @@ export interface Month {
 	month: string;
 	income: number;
 	spending: number;
-	nonOperationalSpending: number;
-	operationalSpending: number;
+	runningNetWorth: number;
 }
 
 export interface Day {

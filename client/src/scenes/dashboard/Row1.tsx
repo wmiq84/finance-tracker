@@ -79,12 +79,14 @@ const Row1 = (props: Props) => {
 		  }))
 		: [];
 
-	// Generate the data for net worth
+	// generate the data for net worth
 	const netWorth = data
-		? data[0].monthlyData.map(({ month, income, spending }) => ({
-				name: month.substring(0, 3),
-				netWorth: income - spending,
-		  }))
+		? data[0].monthlyData.map(
+				({ month, income, spending, runningNetWorth }) => ({
+					name: month.substring(0, 3),
+					netWorth: runningNetWorth,
+				})
+		  )
 		: [];
 
 	// get min and max of income, spending, and networth for graph domains
@@ -112,11 +114,12 @@ const Row1 = (props: Props) => {
 				`http://localhost:1337/income/incomes/${id}`,
 				{
 					method: 'DELETE',
-				
-				headers: {
-					'Content-Type': 'application/json',
-				  },
-		});
+
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
 
 			if (response.ok) {
 				console.log('Deleted');
