@@ -135,8 +135,8 @@ const updateData = async () => {
 		0
 	);
 
-	// Find the KPI document in MongoDB
-	const kpi = await KPI.findOne(); // Assuming there's only one KPI document
+	// find the KPI document in MongoDB
+	const kpi = await KPI.findOne(); 
 
 	if (kpi) {
 		kpi.monthlyData = monthlyData;
@@ -145,7 +145,7 @@ const updateData = async () => {
 		kpi.totalIncome = totalIncome;
 		kpi.totalSpending = totalSpending;
 
-		// Save the updated KPI document to MongoDB
+		// save the updated KPI document to MongoDB
 		await kpi.save();
 		console.log('KPI data updated in MongoDB');
 	} else {

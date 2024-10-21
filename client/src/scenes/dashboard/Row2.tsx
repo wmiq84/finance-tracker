@@ -17,6 +17,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useMemo } from 'react';
 import React from 'react';
 
@@ -24,9 +25,10 @@ type Props = {};
 
 const Row2 = (props: Props) => {
 	const { palette } = useTheme();
-	const { data } = useGetKpisQuery();
-	const { data: spendingData } = useGetSpendingsQuery();
+	const { data, refetch: refetchKpis } = useGetKpisQuery();
+	const { data: spendingData, refetch: refetchSpendings } = useGetSpendingsQuery();
 	const { data: goalData } = useGetGoalsQuery();
+
 
 	const goalCardData = useMemo(() => {
 		if (goalData) {
@@ -76,6 +78,19 @@ const Row2 = (props: Props) => {
 			headerName: 'Category',
 			flex: 1,
 		},
+		{
+			field: 'delete',
+			headerName: '',
+			flex: 0.4,
+			renderCell: (params: GridCellParams) => {
+				return (
+					<DeleteIcon
+						style={{ cursor: 'pointer' }}
+						onClick={() => handleDelete(params.id)}
+					/>
+				);
+			},
+		},
 	];
 
 	const spendingSpending = useMemo(() => {
@@ -90,6 +105,33 @@ const Row2 = (props: Props) => {
 			})
 		);
 	}, [data]);
+
+	const handleDelete = async (id) => {
+		try {
+			console.log(id);
+			const response = await fetch(
+				`http://localhost:1337/spending/spendings/${id}`,
+				{
+					method: 'DELETE',
+
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+
+			if (response.ok) {
+				console.log('Deleted');
+				const updatedIncomeData = await refetchSpendings();
+				console.log('Updated Income Data:', updatedIncomeData.data);
+				const updatedKpiData = await refetchKpis();
+				console.log('Updated KPI Data:', updatedKpiData.data);
+			}
+		} catch (error) {
+			console.error('Failed to delete income:', error);
+		}
+	};
+
 	return (
 		<>
 			<DashboardBox gridArea="d">
@@ -136,9 +178,7 @@ const Row2 = (props: Props) => {
 					</Box>
 				))}
 			</DashboardBox>
-			<DashboardBox gridArea="e">
-
-			</DashboardBox>
+			<DashboardBox gridArea="e"></DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader
 					title="Recent Spending"

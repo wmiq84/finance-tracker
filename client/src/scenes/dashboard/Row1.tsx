@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useMemo, useState, useEffect } from 'react';
-import React from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
 	ResponsiveContainer,
 	AreaChart,
@@ -23,6 +23,8 @@ import {
 	Tooltip,
 	Area,
 } from 'recharts';
+import FlexBetween from '@/components/FlexBetween';
+import ModalForm from '@/components/ModalForm';
 
 type Props = {};
 
@@ -30,6 +32,15 @@ const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data, refetch: refetchKpis } = useGetKpisQuery();
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedIncome, setSelectedIncome] = useState(null);
+
+	const handleOpenModal = (income) => {
+		setSelectedIncome(income); // Set selected income data
+		setIsModalOpen(true);
+	};
+	const handleCloseModal = () => setIsModalOpen(false);
 	// console.log('incomeData: ', incomeData);
 	const incomeColumns = [
 		{
@@ -57,15 +68,22 @@ const Row1 = (props: Props) => {
 			flex: 1,
 		},
 		{
-			field: 'delete',
+			field: 'test',
 			headerName: '',
 			flex: 0.4,
 			renderCell: (params: GridCellParams) => {
+				const income = params.row;
 				return (
-					<DeleteIcon
-						style={{ cursor: 'pointer' }}
-						onClick={() => handleDelete(params.id)}
-					/>
+					<FlexBetween>
+						<DeleteIcon
+							style={{ cursor: 'pointer' }}
+							onClick={() => handleDelete(params.id)}
+						/>
+						<EditIcon
+							style={{ cursor: 'pointer' }}
+							onClick={() => handleOpenModal(income)}
+						/>
+					</FlexBetween>
 				);
 			},
 		},
@@ -133,8 +151,51 @@ const Row1 = (props: Props) => {
 		}
 	};
 
+	const handleEdit = async (id) => {
+		try {
+			console.log(id);
+			const response = await fetch(
+				`http://localhost:1337/income/incomes/${id}`,
+				{
+					method: 'PUT',
+
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+
+			if (response.ok) {
+				console.log('Deleted');
+				const updatedIncomeData = await refetchIncomes();
+				console.log('Updated Income Data:', updatedIncomeData.data);
+				const updatedKpiData = await refetchKpis();
+				console.log('Updated KPI Data:', updatedKpiData.data);
+			}
+		} catch (error) {
+			console.error('Failed to edit income:', error);
+		}
+	};
+
 	return (
 		<>
+			<ModalForm
+				open={isModalOpen}
+				onClose={handleCloseModal}
+				onSubmit={console.log("ASD")}
+				title="Edit Income"
+				subtitle="Update the income details"
+				sideText="Edit"
+				initialValues={
+					selectedIncome
+						? {
+								amount: selectedIncome.amount,
+								description: selectedIncome.category,
+						  }
+						: { amount: '', description: '' }
+				} // Use selected income data
+			/>
+
 			<DashboardBox gridArea="a">
 				<BoxHeader
 					title="Income and Spending"
