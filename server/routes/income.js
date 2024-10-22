@@ -13,12 +13,35 @@ router.get('/incomes', async (req, res) => {
 	}
 });
 
-router.put('/incomes', async (req, res) => {
+router.put('/incomes/:id', async (req, res) => {
 	try {
-		const incomes = await Income.find();
-		res.status(200).json(incomes);
+		const { id } = req.params; 
+		const updatedData = req.body;
+
+		const updatedIncome = await Income.findByIdAndUpdate(id, updatedData, {
+			new: true,
+			runValidators: true,
+		});
+		if (!updatedIncome) {
+			return res.status(404).json({ message: 'Income not found' });
+		}
+		console.log('Starting exec command...');
+		exec('node ./data/updateData.js', (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error update updateData.js: ${error.message}`);
+				return res
+					.status(500)
+					.json({ message: 'Error updating data after income editing' });
+			}
+
+			console.log(`stdout: ${stdout}`);
+			return res
+				.status(200)
+				.json({ message: 'Income edited and data updated successfully' });
+		});
 	} catch (error) {
-		res.status(404).json({ message: error.message });
+		console.error('Error editing income:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
 	}
 });
 
@@ -32,7 +55,7 @@ router.delete('/incomes/:id', async (req, res) => {
 		}
 
 		// recalculate values based on new incomes and sync with MongoDB
-		console.log("Starting exec command..."); 
+		console.log('Starting exec command...');
 		exec('node ./data/updateData.js', (error, stdout, stderr) => {
 			if (error) {
 				console.error(`Error executing updateData.js: ${error.message}`);

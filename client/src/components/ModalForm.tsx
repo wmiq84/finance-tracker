@@ -9,7 +9,7 @@ import {
 	DialogActions,
 	TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FlexBetween from './FlexBetween';
 
 type Props = {
@@ -20,18 +20,17 @@ type Props = {
 		amount: string;
 		category: string;
 	}) => void;
-	icon?: React.ReactNode;
 	title: string;
 	subtitle?: string;
 	sideText?: string;
 	initialValues?: { date: string; amount: string; category: string };
 };
 
+// receives props
 const ModalForm = ({
 	open,
 	onClose,
 	onSubmit,
-	icon,
 	title,
 	subtitle,
 	sideText,
@@ -42,6 +41,12 @@ const ModalForm = ({
 		initialValues || { date: '', amount: '', category: '' }
 	);
 
+  // immediately updates form with initial values
+	useEffect(() => {
+		setFormData(initialValues); 
+	}, [initialValues]);
+
+  // updates form when typing
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
 			...formData,
@@ -49,6 +54,7 @@ const ModalForm = ({
 		});
 	};
 
+  // calls handleEdit with selected id
 	const handleSubmit = () => {
 		onSubmit(formData);
 		onClose();
@@ -58,7 +64,6 @@ const ModalForm = ({
 		<Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
 			<DialogTitle sx={{ backgroundColor: palette.grey[700] }}>
 				<FlexBetween>
-					{icon}
 					<Box>
 						<Typography variant="h4" mb="-0.1rem" color={palette.grey[200]}>
 							{title}

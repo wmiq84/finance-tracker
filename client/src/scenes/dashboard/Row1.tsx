@@ -28,16 +28,25 @@ import ModalForm from '@/components/ModalForm';
 
 type Props = {};
 
+interface Income {
+	id: string;
+	date: string;
+	amount: string;
+	category: string;
+}
+
 const Row1 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data, refetch: refetchKpis } = useGetKpisQuery();
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedIncome, setSelectedIncome] = useState(null);
+	const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
 
-	const handleOpenModal = (income) => {
-		setSelectedIncome(income); // Set selected income data
+	const handleOpenModal = (id) => {
+		// sets the selected income and opens modal
+		const incomeToEdit = incomeData?.find((income: income) => income.id === id); 
+		setSelectedIncome(incomeToEdit); 
 		setIsModalOpen(true);
 	};
 	const handleCloseModal = () => setIsModalOpen(false);
@@ -72,7 +81,6 @@ const Row1 = (props: Props) => {
 			headerName: '',
 			flex: 0.4,
 			renderCell: (params: GridCellParams) => {
-				const income = params.row;
 				return (
 					<FlexBetween>
 						<DeleteIcon
@@ -81,7 +89,7 @@ const Row1 = (props: Props) => {
 						/>
 						<EditIcon
 							style={{ cursor: 'pointer' }}
-							onClick={() => handleOpenModal(income)}
+							onClick={() => handleOpenModal(params.id)}
 						/>
 					</FlexBetween>
 				);
@@ -152,25 +160,34 @@ const Row1 = (props: Props) => {
 	};
 
 	const handleEdit = async (id) => {
+		if (!id) {
+			console.error('No ID provided for the selected income.');
+			return;
+		}
+
 		try {
-			console.log(id);
 			const response = await fetch(
 				`http://localhost:1337/income/incomes/${id}`,
 				{
 					method: 'PUT',
-
 					headers: {
 						'Content-Type': 'application/json',
 					},
+					body: JSON.stringify({
+						date: selectedIncome?.date,
+						amount: selectedIncome?.amount,
+						category: selectedIncome?.category,
+					}),
 				}
 			);
 
 			if (response.ok) {
-				console.log('Deleted');
+				console.log('Income edited');
 				const updatedIncomeData = await refetchIncomes();
 				console.log('Updated Income Data:', updatedIncomeData.data);
 				const updatedKpiData = await refetchKpis();
 				console.log('Updated KPI Data:', updatedKpiData.data);
+				handleCloseModal();
 			}
 		} catch (error) {
 			console.error('Failed to edit income:', error);
@@ -180,20 +197,18 @@ const Row1 = (props: Props) => {
 	return (
 		<>
 			<ModalForm
+				// passes various props to ModalForm.tsx
 				open={isModalOpen}
 				onClose={handleCloseModal}
-				onSubmit={console.log("ASD")}
+				onSubmit={() => handleEdit(selectedIncome?.id)} // pass a function that uses selectedIncome.id
 				title="Edit Income"
 				subtitle="Update the income details"
 				sideText="Edit"
-				initialValues={
-					selectedIncome
-						? {
-								amount: selectedIncome.amount,
-								description: selectedIncome.category,
-						  }
-						: { amount: '', description: '' }
-				} // Use selected income data
+				initialValues={{
+					date: selectedIncome?.date || '', 
+					amount: selectedIncome?.amount || '', 
+					category: selectedIncome?.category || '', 
+				}}
 			/>
 
 			<DashboardBox gridArea="a">
