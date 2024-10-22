@@ -31,7 +31,7 @@ type Props = {};
 interface Income {
 	id: string;
 	date: string;
-	amount: string;
+	amount: number;
 	category: string;
 }
 
@@ -159,7 +159,8 @@ const Row1 = (props: Props) => {
 		}
 	};
 
-	const handleEdit = async (id) => {
+	const handleEdit = async (id, formData) => {
+		console.log(JSON.stringify(formData))
 		if (!id) {
 			console.error('No ID provided for the selected income.');
 			return;
@@ -173,11 +174,7 @@ const Row1 = (props: Props) => {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({
-						date: selectedIncome?.date,
-						amount: selectedIncome?.amount,
-						category: selectedIncome?.category,
-					}),
+					body: JSON.stringify(formData),
 				}
 			);
 
@@ -200,7 +197,7 @@ const Row1 = (props: Props) => {
 				// passes various props to ModalForm.tsx
 				open={isModalOpen}
 				onClose={handleCloseModal}
-				onSubmit={() => handleEdit(selectedIncome?.id)} // pass a function that uses selectedIncome.id
+				onSubmit={(formData) => handleEdit(selectedIncome?.id, formData)} // pass a function that uses selectedIncome.id
 				title="Edit Income"
 				subtitle="Update the income details"
 				sideText="Edit"

@@ -17,13 +17,13 @@ type Props = {
 	onClose: () => void;
 	onSubmit: (formData: {
 		date: string;
-		amount: string;
+		amount: number;
 		category: string;
 	}) => void;
 	title: string;
 	subtitle?: string;
 	sideText?: string;
-	initialValues?: { date: string; amount: string; category: string };
+	initialValues?: { date: string; amount: number; category: string };
 };
 
 // receives props
@@ -38,7 +38,7 @@ const ModalForm = ({
 }: Props) => {
 	const { palette } = useTheme();
 	const [formData, setFormData] = useState(
-		initialValues || { date: '', amount: '', category: '' }
+		initialValues || { date: '', amount: 0, category: '' }
 	);
 
   // immediately updates form with initial values
@@ -56,7 +56,10 @@ const ModalForm = ({
 
   // calls handleEdit with selected id
 	const handleSubmit = () => {
-		onSubmit(formData);
+    // converts amount to cents for later calculations
+		onSubmit({formData,
+      amount: parseInt(formData.amount) * 100
+    });
 		onClose();
 	};
 

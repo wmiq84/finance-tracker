@@ -17,11 +17,9 @@ router.put('/incomes/:id', async (req, res) => {
 	try {
 		const { id } = req.params; 
 		const updatedData = req.body;
+		console.log("Updated Data: " + JSON.stringify(updatedData, null, 2));
 
-		const updatedIncome = await Income.findByIdAndUpdate(id, updatedData, {
-			new: true,
-			runValidators: true,
-		});
+		const updatedIncome = await Income.findByIdAndUpdate(id, updatedData);
 		if (!updatedIncome) {
 			return res.status(404).json({ message: 'Income not found' });
 		}
