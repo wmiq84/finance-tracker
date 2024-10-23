@@ -21,6 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useMemo, useState, useEffect } from 'react';
 import ModalForm from '@/components/ModalForm';
+import CreateForm from '@/components/CreateForm';
 
 type Props = {};
 
@@ -32,11 +33,16 @@ const Row2 = (props: Props) => {
 	const { data: goalData } = useGetGoalsQuery();
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedSpending, setselectedSpending] = useState<Spending | null>(null);
+	const [selectedSpending, setselectedSpending] = useState<Spending | null>(
+		null
+	);
+	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 
 	const handleOpenModal = (id) => {
 		// sets the selected spending and opens modal
-		const spendingToEdit = spendingData?.find((spending: spending) => spending.id === id);
+		const spendingToEdit = spendingData?.find(
+			(spending: spending) => spending.id === id
+		);
 		setselectedSpending(spendingToEdit);
 		setIsModalOpen(true);
 	};
@@ -183,6 +189,34 @@ const Row2 = (props: Props) => {
 		}
 	};
 
+	const handleCreateIncome = async (formData) => {
+		// convert amount to cents for future operations
+		const modifiedFormData = {
+			...formData,
+			amount: formData.amount * 100 
+		};
+
+		try {
+			const response = await fetch(`http://localhost:1337/income/incomes`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(modifiedFormData),
+			});
+	
+			if (response.ok) {
+				console.log('Income created');
+				const updatedIncomeData = await refetchIncomes();
+				console.log('Updated Income Data:', updatedIncomeData.data);
+				const updatedKpiData = await refetchKpis();
+				console.log('Updated KPI Data:', updatedKpiData.data);
+			}
+		} catch (error) {
+			console.error('Failed to create income:', error);
+		}
+	};	
+
 	return (
 		<>
 			<ModalForm
@@ -243,7 +277,14 @@ const Row2 = (props: Props) => {
 					</Box>
 				))}
 			</DashboardBox>
-			<DashboardBox gridArea="e"></DashboardBox>
+			<DashboardBox gridArea="e">
+				<CreateForm
+					// open={isFormOpen}
+					// onClose={handleCloseForm}
+					onSubmit={handleCreateIncome}
+					title="Create New Income"
+				></CreateForm>
+			</DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader
 					title="Recent Spending"

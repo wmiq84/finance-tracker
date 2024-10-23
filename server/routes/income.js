@@ -13,6 +13,31 @@ router.get('/incomes', async (req, res) => {
 	}
 });
 
+router.post('/incomes', async (req, res) => {
+	try {
+		const updatedData = req.body;
+		const updatedIncome = await Income.create(updatedData);
+		console.log("Updated Data: " + JSON.stringify(updatedIncome, null, 2));
+
+		exec('node ./data/updateData.js', (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error update updateData.js: ${error.message}`);
+				return res
+					.status(500)
+					.json({ message: 'Error updating data after income editing' });
+			}
+
+			console.log(`stdout: ${stdout}`);
+			return res
+				.status(200)
+				.json({ message: 'Income edited and data updated successfully' });
+		});
+	} catch (error) {
+		console.error('Error editing income:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
+	}
+});
+
 router.put('/incomes/:id', async (req, res) => {
 	try {
 		const { id } = req.params; 
