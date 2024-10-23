@@ -58,6 +58,8 @@ const Row1 = (props: Props) => {
 			flex: 1,
 			renderCell: (params: GridCellParams) => {
 				const date = new Date(params.value);
+				// adjust date to match db
+				date.setDate(date.getDate() + 1);
 				return date.toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: '2-digit',

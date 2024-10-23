@@ -57,7 +57,7 @@ const ModalForm = ({
   // calls handleEdit with selected id
 	const handleSubmit = () => {
     // converts amount to cents for later calculations
-		onSubmit({formData,
+		onSubmit({...formData,
       amount: parseInt(formData.amount) * 100
     });
 		onClose();
