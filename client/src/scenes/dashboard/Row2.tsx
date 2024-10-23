@@ -18,17 +18,29 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useMemo } from 'react';
-import React from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import React, { useMemo, useState, useEffect } from 'react';
+import ModalForm from '@/components/ModalForm';
 
 type Props = {};
 
 const Row2 = (props: Props) => {
 	const { palette } = useTheme();
 	const { data, refetch: refetchKpis } = useGetKpisQuery();
-	const { data: spendingData, refetch: refetchSpendings } = useGetSpendingsQuery();
+	const { data: spendingData, refetch: refetchSpendings } =
+		useGetSpendingsQuery();
 	const { data: goalData } = useGetGoalsQuery();
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedSpending, setselectedSpending] = useState<Spending | null>(null);
+
+	const handleOpenModal = (id) => {
+		// sets the selected spending and opens modal
+		const spendingToEdit = spendingData?.find((spending: spending) => spending.id === id);
+		setselectedSpending(spendingToEdit);
+		setIsModalOpen(true);
+	};
+	const handleCloseModal = () => setIsModalOpen(false);
 
 	const goalCardData = useMemo(() => {
 		if (goalData) {
@@ -60,6 +72,7 @@ const Row2 = (props: Props) => {
 			flex: 1,
 			renderCell: (params: GridCellParams) => {
 				const date = new Date(params.value);
+				date.setDate(date.getDate() + 1);
 				return date.toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: '2-digit',
@@ -84,10 +97,16 @@ const Row2 = (props: Props) => {
 			flex: 0.4,
 			renderCell: (params: GridCellParams) => {
 				return (
-					<DeleteIcon
-						style={{ cursor: 'pointer' }}
-						onClick={() => handleDelete(params.id)}
-					/>
+					<FlexBetween>
+						<DeleteIcon
+							style={{ cursor: 'pointer' }}
+							onClick={() => handleDelete(params.id)}
+						/>
+						<EditIcon
+							style={{ cursor: 'pointer' }}
+							onClick={() => handleOpenModal(params.id)}
+						/>
+					</FlexBetween>
 				);
 			},
 		},
@@ -122,18 +141,64 @@ const Row2 = (props: Props) => {
 
 			if (response.ok) {
 				console.log('Deleted');
-				const updatedIncomeData = await refetchSpendings();
-				console.log('Updated Income Data:', updatedIncomeData.data);
+				const updatedspendingData = await refetchSpendings();
+				console.log('Updated Spending Data:', updatedspendingData.data);
 				const updatedKpiData = await refetchKpis();
 				console.log('Updated KPI Data:', updatedKpiData.data);
 			}
 		} catch (error) {
-			console.error('Failed to delete income:', error);
+			console.error('Failed to delete spending:', error);
+		}
+	};
+
+	const handleEdit = async (id, formData) => {
+		console.log(JSON.stringify(formData));
+		if (!id) {
+			console.error('No ID provided for the selected spending.');
+			return;
+		}
+
+		try {
+			const response = await fetch(
+				`http://localhost:1337/spending/spendings/${id}`,
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(formData),
+				}
+			);
+
+			if (response.ok) {
+				console.log('Spending edited');
+				const updatedspendingData = await refetchSpendings();
+				console.log('Updated Spending Data:', updatedspendingData.data);
+				const updatedKpiData = await refetchKpis();
+				console.log('Updated KPI Data:', updatedKpiData.data);
+				handleCloseModal();
+			}
+		} catch (error) {
+			console.error('Failed to edit spending:', error);
 		}
 	};
 
 	return (
 		<>
+			<ModalForm
+				// passes various props to ModalForm.tsx
+				open={isModalOpen}
+				onClose={handleCloseModal}
+				onSubmit={(formData) => handleEdit(selectedSpending?.id, formData)} // pass a function that uses selectedSpending.id
+				title="Edit Spending"
+				subtitle="Update the spending details"
+				sideText="Edit"
+				initialValues={{
+					date: selectedSpending?.date || '',
+					amount: selectedSpending?.amount || '',
+					category: selectedSpending?.category || '',
+				}}
+			/>
 			<DashboardBox gridArea="d">
 				<BoxHeader title="Goals"></BoxHeader>
 				{goalCardData?.map((goalData, i) => (

@@ -13,6 +13,36 @@ router.get('/spendings', async (req, res) => {
 	}
 });
 
+router.put('/spendings/:id', async (req, res) => {
+	try {
+		const { id } = req.params; 
+		const updatedData = req.body;
+		console.log("Updated Data: " + JSON.stringify(updatedData, null, 2));
+
+		const updatedIncome = await Spending.findByIdAndUpdate(id, updatedData);
+		if (!updatedIncome) {
+			return res.status(404).json({ message: 'Spending not found' });
+		}
+		console.log('Starting exec command...');
+		exec('node ./data/updateData.js', (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error update updateData.js: ${error.message}`);
+				return res
+					.status(500)
+					.json({ message: 'Error updating data after spending editing' });
+			}
+
+			console.log(`stdout: ${stdout}`);
+			return res
+				.status(200)
+				.json({ message: 'Spending edited and data updated successfully' });
+		});
+	} catch (error) {
+		console.error('Error editing spending:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
+	}
+});
+
 router.delete('/spendings/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
