@@ -18,7 +18,7 @@ type Props = {
 		amount?: number;
 		category?: string;
 		type: string;
-		name?: string;
+		title?: string;  
 		dueDate?: string;
 		amountSaved?: number;
 		completed?: boolean;
@@ -30,7 +30,7 @@ type Props = {
 		amount?: number;
 		category?: string;
 		type: string;
-		name?: string;
+		title?: string;  
 		dueDate?: string;
 		amountSaved?: number;
 		completed?: boolean;
@@ -42,13 +42,13 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 	const [formData, setFormData] = useState(
 		initialValues || {
 			date: '',
-			amount: 0,
+			targetAmount: 0,
 			category: 'Other',
 			type: 'Income',
-			name: '',
+			title: '',  
 			dueDate: '',
-			amountSaved: 0,  // Default amountSaved to 0
-			completed: false, // Default completed to false
+			amountSaved: 0,  
+			completed: false, 
 		}
 	);
 
@@ -65,9 +65,10 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 		e.preventDefault();
 		onSubmit({
 			...formData,
-			amount: Number(formData.amount),
+			title: formData.title, 
 			amountSaved: Number(formData.amountSaved),
-			completed: formData.completed || false, // Default completed to false
+			targetAmount: Number(formData.amount),
+			completed: formData.completed || false, 
 		});
 	};
 
@@ -178,8 +179,7 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 								input: { color: palette.grey[200] },
 								'& .MuiOutlinedInput-root': {
 									'& fieldset': {
-										borderColor: palette.grey[200],
-									},
+										borderColor: palette.grey[200] },
 								},
 							}}
 						/>
@@ -187,9 +187,9 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 				) : (
 					<>
 						<TextField
-							label="Name"
-							name="name"
-							value={formData.name}
+							label="Title" 
+							name="title" 
+							value={formData.title}
 							onChange={handleChange}
 							fullWidth
 							variant="outlined"

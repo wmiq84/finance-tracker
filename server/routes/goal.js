@@ -38,4 +38,34 @@ router.post('/goals', async (req, res) => {
 	}
 });
 
+router.delete('/goals/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const result = await Goal.findByIdAndDelete(id);
+
+		if (!result) {
+			return res.status(404).json({ message: 'Goal not found' });
+		}
+
+		// recalculate values based on new incomes and sync with MongoDB
+		console.log('Starting exec command...');
+		exec('node ./data/updateData.js', (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error executing updateData.js: ${error.message}`);
+				return res
+					.status(500)
+					.json({ message: 'Error updating data after goal deletion' });
+			}
+
+			console.log(`stdout: ${stdout}`);
+			return res
+				.status(200)
+				.json({ message: 'Goal deleted and data updated successfully' });
+		});
+	} catch (error) {
+		console.error('Error deleting goal:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
+	}
+});
+
 export default router;

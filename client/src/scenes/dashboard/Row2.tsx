@@ -40,7 +40,6 @@ const Row2 = (props: Props) => {
 	const { data: goalData, refetch: refetchGoals } = useGetGoalsQuery();
 	const { data: budgetData, refetch: refetchBudgets } = useGetBudgetsQuery();
 
-
 	const handleOpenModal = (id) => {
 		// sets the selected spending and opens modal
 		const spendingToEdit = spendingData?.find(
@@ -54,9 +53,10 @@ const Row2 = (props: Props) => {
 	const goalCardData = useMemo(() => {
 		if (goalData) {
 			return goalData.map(
-				({ title, amountSaved, targetAmount, dueDate, completed }) => {
+				({ id, title, amountSaved, targetAmount, dueDate, completed }) => {
 					const progress = (amountSaved / targetAmount) * 100;
 					return {
+						id,
 						title,
 						amountSaved,
 						targetAmount,
@@ -109,7 +109,7 @@ const Row2 = (props: Props) => {
 					<FlexBetween>
 						<DeleteIcon
 							style={{ cursor: 'pointer' }}
-							onClick={() => handleDelete(params.id)}
+							onClick={() => handleDelete(params.id, 'Spending')}
 						/>
 						<EditIcon
 							style={{ cursor: 'pointer' }}
@@ -134,24 +134,36 @@ const Row2 = (props: Props) => {
 		);
 	}, [data]);
 
-	const handleDelete = async (id) => {
+	const handleDelete = async (id, type) => {
 		try {
-			console.log(id);
-			const response = await fetch(
-				`http://localhost:1337/spending/spendings/${id}`,
-				{
-					method: 'DELETE',
+			let endpoint = '';
 
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
+			switch (type) {
+				case 'Spending':
+					endpoint = `http://localhost:1337/spending/spendings/${id}`;
+					break;
+				case 'Goal':
+					console.log(id);
+					endpoint = `http://localhost:1337/goal/goals/${id}`;
+					break;
+				default:
+					throw new Error('Invalid delete type');
+			}
+	
+			const response = await fetch(endpoint, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+	
 
 			if (response.ok) {
 				console.log('Deleted');
 				const updatedspendingData = await refetchSpendings();
 				console.log('Updated Spending Data:', updatedspendingData.data);
+				const updatedGoalData = await refetchGoals();
+				console.log('Updated Goal Data:', updatedGoalData.data);
 				const updatedKpiData = await refetchKpis();
 				console.log('Updated KPI Data:', updatedKpiData.data);
 			}
@@ -196,7 +208,7 @@ const Row2 = (props: Props) => {
 		// convert amount to cents for future operations
 		const modifiedFormData = {
 			...formData,
-			amount: formData.amount * 100, 
+			amount: formData.amount * 100,
 		};
 
 		try {
@@ -210,10 +222,10 @@ const Row2 = (props: Props) => {
 					endpoint = 'http://localhost:1337/spending/spendings';
 					break;
 				case 'Goal':
-					endpoint = 'http://localhost:1337/goal/goals'; 
+					endpoint = 'http://localhost:1337/goal/goals';
 					break;
 				case 'Budget':
-					endpoint = 'http://localhost:1337/budget/budgets'; 
+					endpoint = 'http://localhost:1337/budget/budgets';
 					break;
 				default:
 					throw new Error('Invalid form type');
@@ -228,11 +240,13 @@ const Row2 = (props: Props) => {
 			});
 
 			if (!response.ok) {
-				throw new Error(`Failed to create ${formData.type}: ${response.statusText}`);
+				throw new Error(
+					`Failed to create ${formData.type}: ${response.statusText}`
+				);
 			}
-	
+
 			console.log(`${formData.type} created successfully`);
-	
+
 			switch (formData.type) {
 				case 'Income': {
 					const updatedIncomeData = await refetchIncomes();
@@ -259,7 +273,6 @@ const Row2 = (props: Props) => {
 			}
 			const updatedKpiData = await refetchKpis();
 			console.log('Updated KPI Data:', updatedKpiData.data);
-	
 		} catch (error) {
 			console.error(`Error while creating ${formData.type}:`, error);
 		}
@@ -298,12 +311,25 @@ const Row2 = (props: Props) => {
 									completed
 								</Typography>
 							) : (
-								<Typography
-									variant="h5"
-									sx={{ fontSize: 16, color: palette.grey[200] }}
-								>
-									Due: {goalData.dueDate}
-								</Typography>
+								<Box display="flex" alignItems="center" gap="0.5rem">
+									{' '}
+									<Typography
+										variant="h5"
+										sx={{ fontSize: 16, color: palette.grey[200] }}
+									>
+										Due: {goalData.dueDate}
+									</Typography>
+									<Box mb="-.2rem">
+										<DeleteIcon
+											style={{ cursor: 'pointer' }}
+											onClick={() => handleDelete(goalData.id, 'Goal')}
+										/>
+										<EditIcon
+											style={{ cursor: 'pointer' }}
+											onClick={() => handleOpenModal(goalData._id)}
+										/>
+									</Box>
+								</Box>
 							)}
 						</FlexBetween>
 						<LinearProgress

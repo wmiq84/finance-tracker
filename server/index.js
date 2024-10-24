@@ -18,6 +18,7 @@ import Income from './models/Income.js';
 import Spending from './models/Spending.js';
 import Goal from './models/Goal.js';
 import Budget from './models/Budget.js';
+import { exec } from 'child_process';
 
 dotenv.config();
 const app = express();
@@ -76,3 +77,5 @@ const seedDatabase = async () => {
 		console.error('Error seeding database:', error);
 	}
 };
+
+exec('node ./data/updateData.js');
