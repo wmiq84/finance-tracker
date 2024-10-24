@@ -16,17 +16,29 @@ type Props = {
 	open: boolean;
 	onClose: () => void;
 	onSubmit: (formData: {
-		date: string;
-		amount: number;
-		category: string;
+		date?: string;
+		amount?: number;
+		category?: string;
+		title?: string;
+		dueDate?: string;
+		targetAmount?: number;
+		amountSaved?: number;
 	}) => void;
 	title: string;
 	subtitle?: string;
 	sideText?: string;
-	initialValues?: { date: string; amount: number; category: string };
+	type: 'Spending' | 'Goal'; // Ensure type is always defined
+	initialValues?: {
+		date?: string;
+		amount?: number;
+		category?: string;
+		title?: string;
+		dueDate?: string;
+		targetAmount?: number;
+		amountSaved?: number;
+	};
 };
 
-// receives props
 const ModalForm = ({
 	open,
 	onClose,
@@ -34,19 +46,58 @@ const ModalForm = ({
 	title,
 	subtitle,
 	sideText,
+	type = 'Spending', // Default to 'Spending' if undefined
 	initialValues,
 }: Props) => {
 	const { palette } = useTheme();
 	const [formData, setFormData] = useState(
-		initialValues || { date: '', amount: 0, category: '' }
+		initialValues || {
+			date: '',
+			amount: 0,
+			category: '',
+			title: '',
+			dueDate: '',
+			amountSaved: 0,
+			targetAmount: 0,
+		}
 	);
 
-  // immediately updates form with initial values
+	// Update form data with initial values when they change
 	useEffect(() => {
-		setFormData(initialValues); 
+		setFormData(
+			initialValues || {
+				date: '',
+				amount: 0,
+				category: '',
+				title: '',
+				dueDate: '',
+				amountSaved: 0,
+				targetAmount: 0,
+			}
+		);
 	}, [initialValues]);
 
-  // updates form when typing
+	// modify date to fit form
+	useEffect(() => {
+		const formattedDate = initialValues?.date
+			? new Date(initialValues.date).toISOString().substring(0, 10)
+			: '';
+
+		let formattedDueDate = '';
+		if (initialValues?.dueDate) {
+			const dueDateObj = new Date(initialValues.dueDate);
+			dueDateObj.setDate(dueDateObj.getDate() - 1); // Subtract one day
+			formattedDueDate = dueDateObj.toISOString().substring(0, 10);
+		}
+
+		setFormData({
+			...initialValues,
+			date: formattedDate,
+			dueDate: formattedDueDate,
+		});
+	}, [initialValues]);
+
+	// Update form fields on user input
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
 			...formData,
@@ -54,12 +105,21 @@ const ModalForm = ({
 		});
 	};
 
-  // calls handleEdit with selected id
+	// Handle form submission
 	const handleSubmit = () => {
-    // converts amount to cents for later calculations
-		onSubmit({...formData,
-      amount: parseInt(formData.amount) * 100
-    });
+		// Ensure correct field names depending on the type
+		const submitData = {
+			...formData,
+			amount:
+				type === 'Spending'
+					? parseInt(formData.amount as any) * 100
+					: undefined,
+			targetAmount:
+				type === 'Goal'
+					? parseInt(formData.targetAmount as any) * 100
+					: undefined,
+		};
+		onSubmit(submitData);
 		onClose();
 	};
 
@@ -82,30 +142,77 @@ const ModalForm = ({
 			</DialogTitle>
 			<DialogContent sx={{ backgroundColor: palette.grey[400] }}>
 				<Box display="flex" flexDirection="column" gap="1rem" mt="1rem">
-					<TextField
-						label="Date"
-						name="date"
-						value={formData.date}
-						onChange={handleChange}
-						fullWidth
-						variant="outlined"
-					/>
-					<TextField
-						label="Amount"
-						name="amount"
-						value={formData.amount}
-						onChange={handleChange}
-						fullWidth
-						variant="outlined"
-					/>
-					<TextField
-						label="Category"
-						name="category"
-						value={formData.category}
-						onChange={handleChange}
-						fullWidth
-						variant="outlined"
-					/>
+					{type === 'Spending' && (
+						<>
+							<TextField
+								label="Date"
+								name="date"
+								value={formData.date}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+							/>
+							<TextField
+								label="Amount"
+								name="amount"
+								value={formData.amount}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+							/>
+							<TextField
+								label="Category"
+								name="category"
+								value={formData.category}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+							/>
+						</>
+					)}
+
+					{type === 'Goal' && (
+						<>
+							<TextField
+								label="Title"
+								name="title"
+								value={formData.title}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+							/>
+							<TextField
+								label="Target Amount"
+								name="targetAmount"
+								value={formData.targetAmount}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+								type="number"
+							/>
+							<TextField
+								label="Amount Saved"
+								name="amountSaved"
+								value={formData.amountSaved}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+								type="number"
+							/>
+							<TextField
+								label="Due Date"
+								name="dueDate"
+								value={formData.dueDate}
+								onChange={handleChange}
+								fullWidth
+								variant="outlined"
+								type="date"
+								InputLabelProps={{
+									shrink: true,
+								}}
+							/>
+						</>
+					)}
 				</Box>
 			</DialogContent>
 			<DialogActions sx={{ backgroundColor: palette.grey[400] }}>

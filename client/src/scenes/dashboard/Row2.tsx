@@ -36,19 +36,35 @@ const Row2 = (props: Props) => {
 	const [selectedSpending, setselectedSpending] = useState<Spending | null>(
 		null
 	);
+	const [selectedGoal, setSelectedGoal] = useState<Goal | null>(
+		null
+	);
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 	const { data: goalData, refetch: refetchGoals } = useGetGoalsQuery();
 	const { data: budgetData, refetch: refetchBudgets } = useGetBudgetsQuery();
 
-	const handleOpenModal = (id) => {
-		// sets the selected spending and opens modal
-		const spendingToEdit = spendingData?.find(
-			(spending: spending) => spending.id === id
-		);
-		setselectedSpending(spendingToEdit);
+	const handleOpenModal = (id, type) => {
+		if (type === 'Spending') {
+		  const spendingToEdit = spendingData?.find(
+			(spending) => spending.id === id
+		  );
+		  setselectedSpending(spendingToEdit);
+		} else if (type === 'Goal') {
+		  const goalToEdit = goalData?.find(
+			(goal) => goal.id === id
+		  );
+		  setSelectedGoal(goalToEdit); 
+		}
+	  
 		setIsModalOpen(true);
-	};
-	const handleCloseModal = () => setIsModalOpen(false);
+	  };
+	  
+	  const handleCloseModal = () => {
+		setIsModalOpen(false);
+		setselectedSpending(null);  
+		setSelectedGoal(null);  
+	  };
+	  
 
 	const goalCardData = useMemo(() => {
 		if (goalData) {
@@ -113,7 +129,7 @@ const Row2 = (props: Props) => {
 						/>
 						<EditIcon
 							style={{ cursor: 'pointer' }}
-							onClick={() => handleOpenModal(params.id)}
+							onClick={() => handleOpenModal(params.id, 'Spending')}
 						/>
 					</FlexBetween>
 				);
@@ -149,14 +165,13 @@ const Row2 = (props: Props) => {
 				default:
 					throw new Error('Invalid delete type');
 			}
-	
+
 			const response = await fetch(endpoint, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 			});
-	
 
 			if (response.ok) {
 				console.log('Deleted');
@@ -284,15 +299,31 @@ const Row2 = (props: Props) => {
 				// passes various props to ModalForm.tsx
 				open={isModalOpen}
 				onClose={handleCloseModal}
-				onSubmit={(formData) => handleEdit(selectedSpending?.id, formData)} // pass a function that uses selectedSpending.id
-				title="Edit Spending"
-				subtitle="Update the spending details"
+				onSubmit={(formData) =>
+					selectedSpending
+					  ? handleEdit(selectedSpending?.id, formData)  
+					  : handleEdit(selectedGoal?.id, formData)    
+				  }
+				title={selectedSpending ? 'Edit Spending' : 'Edit Goal'}
+				subtitle={`Update the ${
+					selectedSpending ? 'spending' : 'goal'
+				} details`}
 				sideText="Edit"
-				initialValues={{
-					date: selectedSpending?.date || '',
-					amount: selectedSpending?.amount || '',
-					category: selectedSpending?.category || 'Other',
-				}}
+				type={selectedSpending ? 'Spending' : 'Goal'}
+				initialValues={
+					selectedSpending
+						? {
+								date: selectedSpending?.date || '',
+								amount: selectedSpending?.amount || '',
+								category: selectedSpending?.category || 'Other',
+						  }
+						: {
+								title: selectedGoal?.title || '',
+								targetAmount: selectedGoal?.targetAmount || 0,
+								amountSaved: selectedGoal?.amountSaved || 0,
+								dueDate: selectedGoal?.dueDate || '',
+						  }
+				}
 			/>
 			<DashboardBox gridArea="d">
 				<BoxHeader title="Goals"></BoxHeader>
@@ -326,7 +357,7 @@ const Row2 = (props: Props) => {
 										/>
 										<EditIcon
 											style={{ cursor: 'pointer' }}
-											onClick={() => handleOpenModal(goalData._id)}
+											onClick={() => handleOpenModal(goalData.id, 'Goal')}
 										/>
 									</Box>
 								</Box>
