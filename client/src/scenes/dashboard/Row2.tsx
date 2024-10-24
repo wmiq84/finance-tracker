@@ -6,6 +6,7 @@ import {
 	useGetIncomesQuery,
 	useGetSpendingsQuery,
 	useGetGoalsQuery,
+	useGetBudgetsQuery,
 } from '@/state/api';
 import {
 	Experimental_CssVarsProvider,
@@ -30,13 +31,15 @@ const Row2 = (props: Props) => {
 	const { data, refetch: refetchKpis } = useGetKpisQuery();
 	const { data: spendingData, refetch: refetchSpendings } =
 		useGetSpendingsQuery();
-	const { data: goalData } = useGetGoalsQuery();
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedSpending, setselectedSpending] = useState<Spending | null>(
 		null
 	);
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
+	const { data: goalData, refetch: refetchGoals } = useGetGoalsQuery();
+	const { data: budgetData, refetch: refetchBudgets } = useGetBudgetsQuery();
+
 
 	const handleOpenModal = (id) => {
 		// sets the selected spending and opens modal
@@ -178,8 +181,8 @@ const Row2 = (props: Props) => {
 
 			if (response.ok) {
 				console.log('Spending edited');
-				const updatedspendingData = await refetchSpendings();
-				console.log('Updated Spending Data:', updatedspendingData.data);
+				const updatedSpendingData = await refetchSpendings();
+				console.log('Updated Spending Data:', updatedSpendingData.data);
 				const updatedKpiData = await refetchKpis();
 				console.log('Updated KPI Data:', updatedKpiData.data);
 				handleCloseModal();
@@ -189,33 +192,78 @@ const Row2 = (props: Props) => {
 		}
 	};
 
-	const handleCreateIncome = async (formData) => {
+	const handleCreate = async (formData) => {
 		// convert amount to cents for future operations
 		const modifiedFormData = {
 			...formData,
-			amount: formData.amount * 100 
+			amount: formData.amount * 100, 
 		};
 
 		try {
-			const response = await fetch(`http://localhost:1337/income/incomes`, {
+			let endpoint = '';
+
+			switch (formData.type) {
+				case 'Income':
+					endpoint = 'http://localhost:1337/income/incomes';
+					break;
+				case 'Spending':
+					endpoint = 'http://localhost:1337/spending/spendings';
+					break;
+				case 'Goal':
+					endpoint = 'http://localhost:1337/goal/goals'; 
+					break;
+				case 'Budget':
+					endpoint = 'http://localhost:1337/budget/budgets'; 
+					break;
+				default:
+					throw new Error('Invalid form type');
+			}
+
+			const response = await fetch(endpoint, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(modifiedFormData),
 			});
-	
-			if (response.ok) {
-				console.log('Income created');
-				const updatedIncomeData = await refetchIncomes();
-				console.log('Updated Income Data:', updatedIncomeData.data);
-				const updatedKpiData = await refetchKpis();
-				console.log('Updated KPI Data:', updatedKpiData.data);
+
+			if (!response.ok) {
+				throw new Error(`Failed to create ${formData.type}: ${response.statusText}`);
 			}
+	
+			console.log(`${formData.type} created successfully`);
+	
+			switch (formData.type) {
+				case 'Income': {
+					const updatedIncomeData = await refetchIncomes();
+					console.log('Updated Income Data:', updatedIncomeData.data);
+					break;
+				}
+				case 'Spending': {
+					const updatedSpendingData = await refetchSpendings();
+					console.log('Updated Spending Data:', updatedSpendingData.data);
+					break;
+				}
+				case 'Goal': {
+					const updatedGoalData = await refetchGoals();
+					console.log('Updated Goal Data:', updatedGoalData.data);
+					break;
+				}
+				case 'Budget': {
+					const updatedBudgetData = await refetchBudgets();
+					console.log('Updated Budget Data:', updatedBudgetData.data);
+					break;
+				}
+				default:
+					break;
+			}
+			const updatedKpiData = await refetchKpis();
+			console.log('Updated KPI Data:', updatedKpiData.data);
+	
 		} catch (error) {
-			console.error('Failed to create income:', error);
+			console.error(`Error while creating ${formData.type}:`, error);
 		}
-	};	
+	};
 
 	return (
 		<>
@@ -230,7 +278,7 @@ const Row2 = (props: Props) => {
 				initialValues={{
 					date: selectedSpending?.date || '',
 					amount: selectedSpending?.amount || '',
-					category: selectedSpending?.category || '',
+					category: selectedSpending?.category || 'Other',
 				}}
 			/>
 			<DashboardBox gridArea="d">
@@ -279,10 +327,8 @@ const Row2 = (props: Props) => {
 			</DashboardBox>
 			<DashboardBox gridArea="e">
 				<CreateForm
-					// open={isFormOpen}
-					// onClose={handleCloseForm}
-					onSubmit={handleCreateIncome}
-					title="Create New Income"
+					onSubmit={handleCreate}
+					title="Add New Income, Spending, Goal, Or Budget"
 				></CreateForm>
 			</DashboardBox>
 			<DashboardBox gridArea="f">
