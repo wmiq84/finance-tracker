@@ -151,11 +151,11 @@ const Row2 = (props: Props) => {
 
 			switch (type) {
 				case 'Spending':
-					endpoint = `http://localhost:1337/spending/spendings/${id}`;
+					endpoint = `${import.meta.env.VITE_API_URL}/spending/spendings/${id}`;
 					break;
 				case 'Goal':
 					console.log(id);
-					endpoint = `http://localhost:1337/goal/goals/${id}`;
+					endpoint = `${import.meta.env.VITE_API_URL}/goal/goals/${id}`;
 					break;
 				default:
 					throw new Error('Invalid delete type');
@@ -194,10 +194,10 @@ const Row2 = (props: Props) => {
 	
 			switch (type) {
 				case 'Spending':
-					endpoint = `http://localhost:1337/spending/spendings/${id}`;
+					endpoint = `${import.meta.env.VITE_API_URL}/spending/spendings/${id}`;
 					break;
 				case 'Goal':
-					endpoint = `http://localhost:1337/goal/goals/${id}`;
+					endpoint = `${import.meta.env.VITE_API_URL}/goal/goals/${id}`;
 					break;
 				default:
 					throw new Error('Invalid form type');
@@ -243,16 +243,16 @@ const Row2 = (props: Props) => {
 
 			switch (formData.type) {
 				case 'Income':
-					endpoint = 'http://localhost:1337/income/incomes';
+					endpoint = '${import.meta.env.VITE_API_URL}/income/incomes';
 					break;
 				case 'Spending':
-					endpoint = 'http://localhost:1337/spending/spendings';
+					endpoint = '${import.meta.env.VITE_API_URL}/spending/spendings';
 					break;
 				case 'Goal':
-					endpoint = 'http://localhost:1337/goal/goals';
+					endpoint = '${import.meta.env.VITE_API_URL}/goal/goals';
 					break;
 				case 'Budget':
-					endpoint = 'http://localhost:1337/budget/budgets';
+					endpoint = '${import.meta.env.VITE_API_URL}/budget/budgets';
 					break;
 				default:
 					throw new Error('Invalid form type');

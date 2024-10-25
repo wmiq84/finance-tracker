@@ -139,7 +139,7 @@ const Row1 = (props: Props) => {
 		try {
 			console.log(id);
 			const response = await fetch(
-				`http://localhost:1337/income/incomes/${id}`,
+				`${import.meta.env.VITE_API_URL}/income/incomes/${id}`,
 				{
 					method: 'DELETE',
 
@@ -170,7 +170,7 @@ const Row1 = (props: Props) => {
 
 		try {
 			const response = await fetch(
-				`http://localhost:1337/income/incomes/${id}`,
+				`${import.meta.env.VITE_API_URL}/income/incomes/${id}`,
 				{
 					method: 'PUT',
 					headers: {
