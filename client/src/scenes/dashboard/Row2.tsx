@@ -243,16 +243,16 @@ const Row2 = (props: Props) => {
 
 			switch (formData.type) {
 				case 'Income':
-					endpoint = '${import.meta.env.VITE_API_URL}/income/incomes';
+					endpoint = `${import.meta.env.VITE_API_URL}/income/incomes`;
 					break;
 				case 'Spending':
-					endpoint = '${import.meta.env.VITE_API_URL}/spending/spendings';
+					endpoint = `${import.meta.env.VITE_API_URL}/spending/spendings`;
 					break;
 				case 'Goal':
-					endpoint = '${import.meta.env.VITE_API_URL}/goal/goals';
+					endpoint = `${import.meta.env.VITE_API_URL}/goal/goals`;
 					break;
 				case 'Budget':
-					endpoint = '${import.meta.env.VITE_API_URL}/budget/budgets';
+					endpoint = `${import.meta.env.VITE_API_URL}/budget/budgets`;
 					break;
 				default:
 					throw new Error('Invalid form type');
