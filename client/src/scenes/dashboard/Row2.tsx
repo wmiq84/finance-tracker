@@ -36,35 +36,30 @@ const Row2 = (props: Props) => {
 	const [selectedSpending, setselectedSpending] = useState<Spending | null>(
 		null
 	);
-	const [selectedGoal, setSelectedGoal] = useState<Goal | null>(
-		null
-	);
+	const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
 	const { data: incomeData, refetch: refetchIncomes } = useGetIncomesQuery();
 	const { data: goalData, refetch: refetchGoals } = useGetGoalsQuery();
 	const { data: budgetData, refetch: refetchBudgets } = useGetBudgetsQuery();
 
 	const handleOpenModal = (id, type) => {
 		if (type === 'Spending') {
-		  const spendingToEdit = spendingData?.find(
-			(spending) => spending.id === id
-		  );
-		  setselectedSpending(spendingToEdit);
+			const spendingToEdit = spendingData?.find(
+				(spending) => spending.id === id
+			);
+			setselectedSpending(spendingToEdit);
 		} else if (type === 'Goal') {
-		  const goalToEdit = goalData?.find(
-			(goal) => goal.id === id
-		  );
-		  setSelectedGoal(goalToEdit); 
+			const goalToEdit = goalData?.find((goal) => goal.id === id);
+			setSelectedGoal(goalToEdit);
 		}
-	  
+
 		setIsModalOpen(true);
-	  };
-	  
-	  const handleCloseModal = () => {
+	};
+
+	const handleCloseModal = () => {
 		setIsModalOpen(false);
-		setselectedSpending(null);  
-		setSelectedGoal(null);  
-	  };
-	  
+		setselectedSpending(null);
+		setSelectedGoal(null);
+	};
 
 	const goalCardData = useMemo(() => {
 		if (goalData) {
@@ -187,35 +182,50 @@ const Row2 = (props: Props) => {
 		}
 	};
 
-	const handleEdit = async (id, formData) => {
-		console.log(JSON.stringify(formData));
-		if (!id) {
-			console.error('No ID provided for the selected spending.');
-			return;
-		}
+	const handleEdit = async (id, type, formData) => {
+		const modifiedFormData = {
+			...formData,
+			amountSaved: formData.amountSaved * 100,
+			targetAmount: formData.targetAmount * 100,
+		};
 
 		try {
-			const response = await fetch(
-				`http://localhost:1337/spending/spendings/${id}`,
-				{
-					method: 'PUT',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(formData),
-				}
-			);
-
+			let endpoint = '';
+	
+			switch (type) {
+				case 'Spending':
+					endpoint = `http://localhost:1337/spending/spendings/${id}`;
+					break;
+				case 'Goal':
+					endpoint = `http://localhost:1337/goal/goals/${id}`;
+					break;
+				default:
+					throw new Error('Invalid form type');
+			}
+	
+			const response = await fetch(endpoint, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
+	
 			if (response.ok) {
-				console.log('Spending edited');
-				const updatedSpendingData = await refetchSpendings();
-				console.log('Updated Spending Data:', updatedSpendingData.data);
-				const updatedKpiData = await refetchKpis();
-				console.log('Updated KPI Data:', updatedKpiData.data);
+				console.log(`${type} edited successfully`);
+				if (type === 'Spending') {
+					await refetchSpendings();
+				} else if (type === 'Goal') {
+					await refetchGoals();
+				}
+	
+				await refetchKpis(); 
 				handleCloseModal();
+			} else {
+				console.error(`Failed to edit ${type}:`, response.statusText);
 			}
 		} catch (error) {
-			console.error('Failed to edit spending:', error);
+			console.error(`Failed to edit ${type}:`, error);
 		}
 	};
 
@@ -224,6 +234,8 @@ const Row2 = (props: Props) => {
 		const modifiedFormData = {
 			...formData,
 			amount: formData.amount * 100,
+			amountSaved: formData.amountSaved * 100,
+			targetAmount: formData.targetAmount * 100,
 		};
 
 		try {
@@ -299,11 +311,15 @@ const Row2 = (props: Props) => {
 				// passes various props to ModalForm.tsx
 				open={isModalOpen}
 				onClose={handleCloseModal}
-				onSubmit={(formData) =>
-					selectedSpending
-					  ? handleEdit(selectedSpending?.id, formData)  
-					  : handleEdit(selectedGoal?.id, formData)    
-				  }
+				onSubmit={(formData) => {
+					if (selectedSpending) {
+						// Ensure type is correctly set in formData
+						handleEdit(selectedSpending?.id, 'Spending', formData);
+					} else if (selectedGoal) {
+						// Ensure type is correctly set in formData
+						handleEdit(selectedGoal?.id, 'Goal', formData);
+					}
+				}}
 				title={selectedSpending ? 'Edit Spending' : 'Edit Goal'}
 				subtitle={`Update the ${
 					selectedSpending ? 'spending' : 'goal'
@@ -315,13 +331,20 @@ const Row2 = (props: Props) => {
 						? {
 								date: selectedSpending?.date || '',
 								amount: selectedSpending?.amount || '',
-								category: selectedSpending?.category || 'Other',
+								category: selectedSpending?.category || '',
+								title: '', 
+								targetAmount: 0,
+								amountSaved: 0,
+								dueDate: '', 
 						  }
 						: {
 								title: selectedGoal?.title || '',
 								targetAmount: selectedGoal?.targetAmount || 0,
 								amountSaved: selectedGoal?.amountSaved || 0,
 								dueDate: selectedGoal?.dueDate || '',
+								date: '',  
+								amount: 0, 
+								category: ''
 						  }
 				}
 			/>

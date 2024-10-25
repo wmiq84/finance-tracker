@@ -42,6 +42,7 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 	const [formData, setFormData] = useState(
 		initialValues || {
 			date: '',
+			amount: 0,
 			targetAmount: 0,
 			category: 'Other',
 			type: 'Income',

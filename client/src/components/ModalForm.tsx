@@ -27,7 +27,7 @@ type Props = {
 	title: string;
 	subtitle?: string;
 	sideText?: string;
-	type: 'Spending' | 'Goal'; // Ensure type is always defined
+	type: 'Spending' | 'Goal';
 	initialValues?: {
 		date?: string;
 		amount?: number;
@@ -46,7 +46,7 @@ const ModalForm = ({
 	title,
 	subtitle,
 	sideText,
-	type = 'Spending', // Default to 'Spending' if undefined
+	type = 'Spending', // default to 'Spending' if undefined
 	initialValues,
 }: Props) => {
 	const { palette } = useTheme();
@@ -62,7 +62,7 @@ const ModalForm = ({
 		}
 	);
 
-	// Update form data with initial values when they change
+	// update form data with initial values when they change
 	useEffect(() => {
 		setFormData(
 			initialValues || {
@@ -97,7 +97,7 @@ const ModalForm = ({
 		});
 	}, [initialValues]);
 
-	// Update form fields on user input
+	// update form fields on user input
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
 			...formData,
@@ -105,9 +105,9 @@ const ModalForm = ({
 		});
 	};
 
-	// Handle form submission
+	// handle form submission
 	const handleSubmit = () => {
-		// Ensure correct field names depending on the type
+		// ensure correct field names depending on the type
 		const submitData = {
 			...formData,
 			amount:

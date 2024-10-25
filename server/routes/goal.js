@@ -38,6 +38,37 @@ router.post('/goals', async (req, res) => {
 	}
 });
 
+
+router.put('/goals/:id', async (req, res) => {
+	try {
+		const { id } = req.params; 
+		const updatedData = req.body;
+		console.log("Updated Data: " + JSON.stringify(updatedData, null, 2));
+
+		const updatedGoal = await Goal.findByIdAndUpdate(id, updatedData);
+		if (!updatedGoal) {
+			return res.status(404).json({ message: 'Goal not found' });
+		}
+		console.log('Starting exec command...');
+		exec('node ./data/updateData.js', (error, stdout, stderr) => {
+			if (error) {
+				console.error(`Error update updateData.js: ${error.message}`);
+				return res
+					.status(500)
+					.json({ message: 'Error updating data after goal editing' });
+			}
+
+			console.log(`stdout: ${stdout}`);
+			return res
+				.status(200)
+				.json({ message: 'Goal edited and data updated successfully' });
+		});
+	} catch (error) {
+		console.error('Error editing goal:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
+	}
+});
+
 router.delete('/goals/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -47,7 +78,7 @@ router.delete('/goals/:id', async (req, res) => {
 			return res.status(404).json({ message: 'Goal not found' });
 		}
 
-		// recalculate values based on new incomes and sync with MongoDB
+		// recalculate values based on new goals and sync with MongoDB
 		console.log('Starting exec command...');
 		exec('node ./data/updateData.js', (error, stdout, stderr) => {
 			if (error) {
