@@ -191,7 +191,7 @@ const ModalForm = ({
 								type="number"
 							/>
 							<TextField
-								label="Amount Saved"
+								label="Current Amount"
 								name="amountSaved"
 								value={formData.amountSaved}
 								onChange={handleChange}

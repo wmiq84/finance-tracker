@@ -19,6 +19,7 @@ import Spending from './models/Spending.js';
 import Goal from './models/Goal.js';
 import Budget from './models/Budget.js';
 import { exec } from 'child_process';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 const app = express();
@@ -36,6 +37,10 @@ app.use('/income', incomeRoutes);
 app.use('/spending', spendingRoutes);
 app.use('/goal', goalRoutes);
 app.use('/budget', budgetRoutes);
+
+// json web token
+const token = jwt.sign({ access: 'general' }, 'your_jwt_secret_key');
+console.log("Static Token:", token);
 
 // mongoose setup
 const PORT = process.env.PORT || 9000;

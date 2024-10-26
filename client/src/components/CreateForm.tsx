@@ -250,7 +250,7 @@ const CreateForm = ({ onSubmit, title, subtitle, initialValues }: Props) => {
 						/>
 
 						<TextField
-							label="Amount Saved"
+							label="Current Amounnt"
 							name="amountSaved"
 							value={formData.amountSaved}
 							onChange={handleChange}

@@ -47,7 +47,7 @@ const Navbar = (props: Props) => {
 							textDecoration: 'inherit',
 						}}
 					>
-						Predictions
+						Predictions (WIP)
 					</Link>
 				</Box>
 			</FlexBetween>

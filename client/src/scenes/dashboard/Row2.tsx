@@ -66,13 +66,16 @@ const Row2 = (props: Props) => {
 			return goalData.map(
 				({ id, title, amountSaved, targetAmount, dueDate, completed }) => {
 					const progress = (amountSaved / targetAmount) * 100;
+
+					const adjustedDueDate = new Date(dueDate);
+					adjustedDueDate.setDate(adjustedDueDate.getDate() + 1);
+
 					return {
 						id,
 						title,
 						amountSaved,
 						targetAmount,
-						dueDate: new Date(dueDate).toLocaleDateString('en-US', {
-							year: 'numeric',
+						dueDate: adjustedDueDate.toLocaleDateString('en-US', {
 							month: '2-digit',
 							day: '2-digit',
 						}),
@@ -94,7 +97,6 @@ const Row2 = (props: Props) => {
 				const date = new Date(params.value);
 				date.setDate(date.getDate() + 1);
 				return date.toLocaleDateString('en-US', {
-					year: 'numeric',
 					month: '2-digit',
 					day: '2-digit',
 				});
@@ -191,7 +193,7 @@ const Row2 = (props: Props) => {
 
 		try {
 			let endpoint = '';
-	
+
 			switch (type) {
 				case 'Spending':
 					endpoint = `${import.meta.env.VITE_API_URL}/spending/spendings/${id}`;
@@ -202,7 +204,7 @@ const Row2 = (props: Props) => {
 				default:
 					throw new Error('Invalid form type');
 			}
-	
+
 			const response = await fetch(endpoint, {
 				method: 'PUT',
 				headers: {
@@ -210,7 +212,7 @@ const Row2 = (props: Props) => {
 				},
 				body: JSON.stringify(formData),
 			});
-	
+
 			if (response.ok) {
 				console.log(`${type} edited successfully`);
 				if (type === 'Spending') {
@@ -218,8 +220,8 @@ const Row2 = (props: Props) => {
 				} else if (type === 'Goal') {
 					await refetchGoals();
 				}
-	
-				await refetchKpis(); 
+
+				await refetchKpis();
 				handleCloseModal();
 			} else {
 				console.error(`Failed to edit ${type}:`, response.statusText);
@@ -313,10 +315,8 @@ const Row2 = (props: Props) => {
 				onClose={handleCloseModal}
 				onSubmit={(formData) => {
 					if (selectedSpending) {
-						// Ensure type is correctly set in formData
 						handleEdit(selectedSpending?.id, 'Spending', formData);
 					} else if (selectedGoal) {
-						// Ensure type is correctly set in formData
 						handleEdit(selectedGoal?.id, 'Goal', formData);
 					}
 				}}
@@ -332,19 +332,19 @@ const Row2 = (props: Props) => {
 								date: selectedSpending?.date || '',
 								amount: selectedSpending?.amount || '',
 								category: selectedSpending?.category || '',
-								title: '', 
+								title: '',
 								targetAmount: 0,
 								amountSaved: 0,
-								dueDate: '', 
+								dueDate: '',
 						  }
 						: {
 								title: selectedGoal?.title || '',
 								targetAmount: selectedGoal?.targetAmount || 0,
 								amountSaved: selectedGoal?.amountSaved || 0,
 								dueDate: selectedGoal?.dueDate || '',
-								date: '',  
-								amount: 0, 
-								category: ''
+								date: '',
+								amount: 0,
+								category: '',
 						  }
 				}
 			/>
@@ -406,10 +406,7 @@ const Row2 = (props: Props) => {
 				))}
 			</DashboardBox>
 			<DashboardBox gridArea="e">
-				<CreateForm
-					onSubmit={handleCreate}
-					title="Add New Income, Spending, Goal, Or Budget"
-				></CreateForm>
+				<CreateForm onSubmit={handleCreate} title="Add New"></CreateForm>
 			</DashboardBox>
 			<DashboardBox gridArea="f">
 				<BoxHeader

@@ -21,7 +21,7 @@
 <div align="center">
 <h3 align="center"><a href="finance-tracker-ten-silk.vercel.app" target="_blank">Personal Finance Tracker</a></h3>
   <p align="center">
-    A full stack personal finance tracker app to get a picture of income and spending patterns
+    A full stack personal finance tracker app to get a better picture of income and spending patterns
     <br />
   </p>
 </div>
@@ -47,7 +47,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-https://finance-tracker-ten-silk.vercel.app/
+<div align="center">
+  <a href="https://finance-tracker-ten-silk.vercel.app/">https://finance-tracker-ten-silk.vercel.app/</a>
+</div>
+
+<br />
 
 ![Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ca97ec86-1f4c-4c55-855c-ecdf85481348)
 
@@ -68,7 +72,7 @@ Before running this project locally, make sure you have the following installed:
 ### Installation
 
 ### Backend
-1. Create a MongoDB collection [https://mongodb.com](https://mongodb.com)
+1. Create a MongoDB collection at [https://mongodb.com](https://mongodb.com)
 2. Clone the repo
    ```sh
    git clone https://github.com/wmiq84/finance-tracker.git
@@ -94,9 +98,10 @@ Before running this project locally, make sure you have the following installed:
    ```sh
    npm install
    ```
-3. Create a `.env` and enter a matching Vite url to the server port
+3. Create a `.env` and enter a matching Vite base and API url to the server port
    ```sh
-   VITE_BASE_URL=`ENTER_YOUR_URL`;
+   VITE_BASE_URL='ENTER_YOUR_URL';
+   VITE_API_URL='ENTER_YOUR_URL';
    ```
 6. Start the Express application with `npm run dev`
    ```sh
@@ -104,7 +109,8 @@ Before running this project locally, make sure you have the following installed:
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Michael Wang - michaelwang3489@gmail.com - linkedin.com/in/michaelwangucsd
+Michael Wang - michaelwang3489@gmail.com - [linkedin.com/in/michaelwangucsd](linkedin.com/in/michaelwangucsd)
+<br />
 Project Link: [https://github.com/wmiq84/finance-tracker](https://github.com/wmiq84/finance-tracker)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

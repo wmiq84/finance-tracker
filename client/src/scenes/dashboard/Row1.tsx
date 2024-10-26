@@ -61,7 +61,6 @@ const Row1 = (props: Props) => {
 				// adjust date to match db
 				date.setDate(date.getDate() + 1);
 				return date.toLocaleDateString('en-US', {
-					year: 'numeric',
 					month: '2-digit',
 					day: '2-digit',
 				});
