@@ -9,7 +9,7 @@ const BudgetSchema = new Schema(
         title: {
             type: String,
         },
-		amountSpent: {
+		amountSaved: {
 			type: mongoose.Types.Currency,
 			currency: 'USD',
 			get: (v) => v / 100,

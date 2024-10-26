@@ -76,7 +76,7 @@ export interface GetBudgetsResponse {
 	id: string;
 	__v: number;
 	title: string;
-	amountSpent: number;
+	amountSaved: number;
 	targetAmount: number;
 	dueDate: string;
 	completed: boolean;

@@ -41,12 +41,12 @@ const Row3 = () => {
 	const budgetCardData = useMemo(() => {
 		if (budgetData) {
 			return budgetData.map(
-				({ id, title, amountSpent, targetAmount, dueDate, completed }) => {
-					const progress = (amountSpent / targetAmount) * 100;
+				({ id, title, amountSaved, targetAmount, dueDate, completed }) => {
+					const progress = (amountSaved / targetAmount) * 100;
 					return {
 						id,
 						title,
-						amountSpent,
+						amountSaved,
 						targetAmount,
 						dueDate: new Date(dueDate).toLocaleDateString('en-US', {
 							month: '2-digit',
@@ -121,9 +121,11 @@ const Row3 = () => {
 	const handleEdit = async (id, type, formData) => {
 		const modifiedFormData = {
 			...formData,
-			amountSpent: formData.amountSaved * 100,
+			amountSaved: formData.amountSaved * 100,
 			targetAmount: formData.targetAmount * 100,
 		};
+
+		console.log(modifiedFormData)
 
 		try {
 			let endpoint = '';
@@ -246,7 +248,7 @@ const Row3 = () => {
 						: {
 								title: selectedBudget?.title || '',
 								targetAmount: selectedBudget?.targetAmount || 0,
-								amountSaved: selectedBudget?.amountSpent || 0,
+								amountSaved: selectedBudget?.amountSaved || 0,
 								dueDate: selectedBudget?.dueDate || '',
 								date: '',
 								amount: 0,
@@ -304,7 +306,7 @@ const Row3 = () => {
 							}}
 						/>
 						<FlexBetween mt="0.25rem">
-							<Typography>${budgetData.amountSpent}</Typography>
+							<Typography>${budgetData.amountSaved}</Typography>
 							<Typography>${budgetData.targetAmount}</Typography>
 						</FlexBetween>
 					</Box>

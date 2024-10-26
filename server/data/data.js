@@ -732,14 +732,14 @@
 // export const budgets = [
 // 	{
 // 		title: 'Video Games',
-// 		amountSpent: '$40.00',
+// 		amountSaved: '$40.00',
 // 		targetAmount: '$50.00',
 // 		dueDate: '2024-12-30',
 // 		completed: false,
 // 	},
 // 	{
 // 		title: 'Eating Out',
-// 		amountSpent: '$300.00',
+// 		amountSaved: '$300.00',
 // 		targetAmount: '$450.00',
 // 		dueDate: '2024-12-30',
 // 		completed: false,
