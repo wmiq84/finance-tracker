@@ -1,4 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+![image](https://github.com/user-attachments/assets/4cae3aa3-eda0-40f8-b821-1e4a2b895675)<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -18,10 +18,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -31,8 +27,6 @@
     <br />
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -55,12 +49,10 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot]![Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ad03f1de-94c6-497d-b33d-ceaab7ce29ab)
+[Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ad03f1de-94c6-497d-b33d-ceaab7ce29ab)
 
 A full stack personal finance tracker app, with RESTful design and CRUD functionality. Inputted data is visualized using various charts and graphs. 
 
@@ -68,15 +60,11 @@ This site has a MongoDB database, Express.js backend framework hosted on Fly.io,
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 
 * [![React][React.js]][React-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -123,14 +111,12 @@ Before running this project locally, make sure you have the following installed:
    ```sh
    npm run dev
    ```
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
 
-Michael Wang - michaelwang3489@gmail.com
-
+Michael Wang - michaelwang3489@gmail.com - linkedin.com/in/michaelwangucsd
 Project Link: [https://github.com/wmiq84/finance-tracker](https://github.com/wmiq84/finance-tracker)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
