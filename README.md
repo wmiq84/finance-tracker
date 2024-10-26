@@ -18,7 +18,6 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
 <h3 align="center">Personal Finance Tracker</h3>
   <p align="center">
@@ -102,8 +101,7 @@ Before running this project locally, make sure you have the following installed:
    npm run dev
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<!-- CONTACT -->
-## Contact
+### Contact
 
 Michael Wang - michaelwang3489@gmail.com - linkedin.com/in/michaelwangucsd
 Project Link: [https://github.com/wmiq84/finance-tracker](https://github.com/wmiq84/finance-tracker)
