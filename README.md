@@ -19,7 +19,7 @@
 -->
 <!-- PROJECT LOGO -->
 <div align="center">
-<h3 align="center">Personal Finance Tracker</h3>
+<h3 align="center"><a href="finance-tracker-ten-silk.vercel.app" target="_blank">Personal Finance Tracker</a></h3>
   <p align="center">
     A full stack personal finance tracker app to get a picture of income and spending patterns
     <br />
@@ -46,6 +46,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+
+https://finance-tracker-ten-silk.vercel.app/
 
 ![Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ca97ec86-1f4c-4c55-855c-ecdf85481348)
 
@@ -101,7 +103,7 @@ Before running this project locally, make sure you have the following installed:
    npm run dev
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-### Contact
+
 Michael Wang - michaelwang3489@gmail.com - linkedin.com/in/michaelwangucsd
 Project Link: [https://github.com/wmiq84/finance-tracker](https://github.com/wmiq84/finance-tracker)
 
