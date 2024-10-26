@@ -101,7 +101,6 @@ Before running this project locally, make sure you have the following installed:
    npm run dev
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-### Contact
 
 Michael Wang - michaelwang3489@gmail.com - linkedin.com/in/michaelwangucsd
 Project Link: [https://github.com/wmiq84/finance-tracker](https://github.com/wmiq84/finance-tracker)
