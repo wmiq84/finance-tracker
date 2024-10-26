@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/4cae3aa3-eda0-40f8-b821-1e4a2b895675)<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -34,9 +33,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -52,17 +48,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ad03f1de-94c6-497d-b33d-ceaab7ce29ab)
+![Screenshot 2024-10-25 183649](https://github.com/user-attachments/assets/ca97ec86-1f4c-4c55-855c-ecdf85481348)
 
 A full stack personal finance tracker app, with RESTful design and CRUD functionality. Inputted data is visualized using various charts and graphs. 
 
 This site has a MongoDB database, Express.js backend framework hosted on Fly.io, and a ReactJS/Typescript frontend hosted on Vercel.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Built With
-
-* [![React][React.js]][React-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -112,7 +102,6 @@ Before running this project locally, make sure you have the following installed:
    npm run dev
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTACT -->
 ## Contact
 
