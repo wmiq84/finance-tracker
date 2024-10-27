@@ -122,7 +122,13 @@ const Row3 = () => {
 		const modifiedFormData = {
 			...formData,
 			amountSaved: formData.amountSaved * 100,
-			targetAmount: formData.targetAmount * 100,
+			dueDate: (() => {
+				const date = new Date(formData.dueDate);
+				date.setDate(date.getDate() + 1);
+				const month = String(date.getMonth() + 1).padStart(2, '0');
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${month}/${day}`; 
+			})(),	
 		};
 
 		console.log(modifiedFormData)
@@ -146,7 +152,7 @@ const Row3 = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify(modifiedFormData),
 			});
 
 			if (response.ok) {

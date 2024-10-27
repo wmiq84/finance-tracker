@@ -67,15 +67,12 @@ const Row2 = (props: Props) => {
 				({ id, title, amountSaved, targetAmount, dueDate, completed }) => {
 					const progress = (amountSaved / targetAmount) * 100;
 
-					const adjustedDueDate = new Date(dueDate);
-					adjustedDueDate.setDate(adjustedDueDate.getDate() + 1);
-
 					return {
 						id,
 						title,
 						amountSaved,
 						targetAmount,
-						dueDate: adjustedDueDate.toLocaleDateString('en-US', {
+						dueDate: new Date(dueDate).toLocaleDateString('en-US', {
 							month: '2-digit',
 							day: '2-digit',
 						}),
@@ -188,7 +185,13 @@ const Row2 = (props: Props) => {
 		const modifiedFormData = {
 			...formData,
 			amountSaved: formData.amountSaved * 100,
-			targetAmount: formData.targetAmount * 100,
+			dueDate: (() => {
+				const date = new Date(formData.dueDate);
+				date.setDate(date.getDate() + 1);
+				const month = String(date.getMonth() + 1).padStart(2, '0');
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${month}/${day}`;
+			})(),
 		};
 
 		try {
@@ -210,7 +213,7 @@ const Row2 = (props: Props) => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify(modifiedFormData),
 			});
 
 			if (response.ok) {
@@ -238,6 +241,13 @@ const Row2 = (props: Props) => {
 			amount: formData.amount * 100,
 			amountSaved: formData.amountSaved * 100,
 			targetAmount: formData.targetAmount * 100,
+			dueDate: (() => {
+				const date = new Date(formData.dueDate);
+				date.setDate(date.getDate() + 1);
+				const month = String(date.getMonth() + 1).padStart(2, '0');
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${month}/${day}`;
+			})(),
 		};
 
 		try {
