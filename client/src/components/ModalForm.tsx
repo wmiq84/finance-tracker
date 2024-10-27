@@ -86,7 +86,7 @@ const ModalForm = ({
 		let formattedDueDate = '';
 		if (initialValues?.dueDate) {
 			const dueDateObj = new Date(initialValues.dueDate);
-			dueDateObj.setDate(dueDateObj.getDate() - 1); // Subtract one day
+			dueDateObj.setDate(dueDateObj.getDate()); // Subtract one day
 			formattedDueDate = dueDateObj.toISOString().substring(0, 10);
 		}
 
